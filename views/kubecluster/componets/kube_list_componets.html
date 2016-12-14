@@ -1,0 +1,71 @@
+{{template "/head.tpl" .}}
+{{template "/top1.tpl" .}}
+<div class="bs-docs-example" style="padding-top: 15px;">
+  <!--   <div><span class="lh30px fw h4">Kube Cluster Componets</span></div> -->
+    <table class="table table-hover ">
+        <thead>
+            <tr>
+                <th class="text-center">Componets</th>
+                <th class="text-center">Type</th>
+                <th class="text-center">Status</th>
+                <th class="text-center">Messages</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        
+            {{range .ComponetsList.Items}} 
+           
+                <tr class="text-center lh30px">
+                    <td class="text-v-center  ">{{.Metadata.Name}}  
+                    </td>
+                    {{range .Conditions}}
+                    <td class="text-v-center  ">
+                       {{.Type}}
+                    </td>
+                    
+                    <td class="text-v-center  ">
+                       {{.Status}}
+                    </td>
+                   
+                    <td class="text-v-center  ">
+                        {{  .Message}}
+                    </td>
+                    {{end}}
+                    <td class="text-v-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default"  onclick="return send({{.Metadata.Name}})">Detail</button>
+                        
+                    </div>
+                </td>
+                </tr>
+                {{end}}
+                <div></div>
+            </form>
+           
+        </tbody>
+    </table>
+</div>
+
+   <!--弹出模 over-->
+{{template "/poplayer.tpl" .}}
+
+
+{{template "/foot.tpl" .}}  
+
+
+
+<script type="text/javascript">
+function send(m) {
+    // $("#"+m).click(function(){  
+
+    var frameSrc = "/kubecluster/specComponets?name=" + m ;
+    //alert(frameSrc);  
+    $("#NoPermissioniframe").attr("src", frameSrc);
+    $('#NoPermissionModal').modal({
+        show: true,
+        backdrop: 'static'
+    });
+    // });  
+}
+</script>

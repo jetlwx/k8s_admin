@@ -1,0 +1,101 @@
+{{template "/headCssJs.tpl" .}}
+<div class="bs-docs-example" style="padding-top: 15px;">
+    <table class="table table-hover ">
+        <thead>
+            <tr>
+                <th class="text-center">Items</th>
+                <th class="text-center">Messages</th>
+                       
+            </tr>
+        </thead>
+        
+        <tbody>
+   {{with .SPECSERVICE}}
+         <tr class="text-center lh30px">
+           <td class="text-v-center  ">Kind</td>
+            <td class="text-v-center tleft ">
+                {{.Kind}}
+            </td>             
+         </tr>
+ <tr class="text-center lh30px">
+           <td class="text-v-center  ">ApiVersion</td>
+            <td class="text-v-center tleft ">
+                {{.APIVersion}}
+            </td>             
+         </tr>
+       
+         </tr>
+         {{with .Metadata}}
+               <tr class="text-center lh30px">    
+
+           <td class="text-v-center  ">Metadata</td>
+            <td class="text-v-center  ">
+             <div class="tleft">Name: {{.Name}}</div>
+             <div class="tleft">Namespace: {{.Namespace}}</div>
+             <div class="tleft">SelfLink: {{.SelfLink}}</div>
+             <div class="tleft">ResourceVersion: {{.ResourceVersion}}</div>
+             <div class="tleft">CreationTimestamp: {{.CreationTimestamp}}</div>
+             <div class="tleft">Labels: </br>
+             {{ range $x,$y := .Labels}} 
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $x}} : {{$y}}</br>
+                 {{end}}
+             </div>
+            </td>             
+         </tr>
+ {{end}}
+  {{with .Spec}}
+   <tr class="text-center lh30px">
+           <td class="text-v-center  ">Type</td>
+            <td class="text-v-center tleft ">
+                {{.Type}}
+            </td>             
+         </tr>
+  <tr class="text-center lh30px">
+           <td class="text-v-center  ">ClusterIp</td>
+            <td class="text-v-center tleft ">
+                {{.ClusterIP}}
+            </td>             
+         </tr>
+  <tr class="text-center lh30px">
+           <td class="text-v-center  ">Selector</td>
+            <td class="text-v-center tleft ">
+                {{range $sk,$sv := .Selector}}
+                {{$sk}} : {{$sv}}
+                {{end}}
+            </td>             
+         </tr>
+          <tr class="text-center lh30px">
+           <td class="text-v-center  ">SessionAffinity</td>
+            <td class="text-v-center tleft ">
+                {{.SessionAffinity}}
+            </td>             
+         </tr>
+         <tr class="text-center lh30px">
+           <td class="text-v-center  ">LoadBalancerIP</td>
+            <td class="text-v-center tleft ">
+                {{.LoadBalancerIP}}
+
+            </td>             
+         </tr>
+         {{end}}
+         {{with .Status.LoadBalancer.Ingress}}
+          <tr class="text-center lh30px">
+           <td class="text-v-center  ">LoadBalancer</td>
+            <td class="text-v-center tleft ">
+                <div>IP: {{.Ip}}</div>
+                <div>Hostname: {{.Hostname}}</div>
+
+            </td>             
+         </tr>
+         {{end}}
+
+
+
+{{end}}
+            </tbody>
+     
+        
+        
+       
+    </table>
+</div>

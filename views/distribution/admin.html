@@ -1,0 +1,111 @@
+
+{{template "head.tpl" . }}
+
+                            
+                         
+<div  class="bs-docs-example" >
+    <table class="table table-hover ">
+      <thead>
+        <tr  >
+         
+          <th class="text-center">镜像名</th>
+          <th class="text-center">Tag</th>
+          <th class="text-center">操作</th>
+        </tr>
+      </thead>
+      <tbody >
+      {{range $key,$value := .Images}}
+      <form action="" method="Get">
+        <tr class="text-center lh30px">
+          
+          <td class="text-v-center h4 ">{{$key}}</td>
+          <td class="text-v-center h4">{{$value}}</td>
+          <td >
+            <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" onclick="return send({{$key}},{{$value}})"> 删 除
+</button>
+
+
+      
+          </td>
+        </tr>
+        </form>
+      {{end}}
+      </tbody>
+    </table>
+    <div class="w-center">
+      <a class="btn btn-default m10" href="/distribution" role="button">首 页</a>
+
+       <a class="btn btn-default m10" href="/distribution?Pre={{.PreImage}}" role="button" {{if not .Isnotpre}} style="display: none;"{{end}}>上 一 页</a>
+
+        <a class="btn btn-default m10" href="/distribution?last={{.LastImage}}" role="button" {{if .IstoLast }} style="display: none;" {{end}}>下 一 页</a>
+         
+
+</div>
+  </div>
+  
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">警告!!!</h4>
+      </div>
+      <form action="/distribution" method="get" >
+      <div class="modal-body" >
+      <span class="lh30px" >1、若系统检查到此镜被关联，将会取消删除</br>2、删除后将不可恢复</br>
+      </span>
+      <div class="input-group" style="margin-bottom: 10px;">
+    <span class="input-group-addon" id="sizing-addon2">镜像名-></span>
+      <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon2"  id="delimage"  name="delimage" readonly="readonly">
+
+    </div>
+<div  class="input-group">
+<span class="input-group-addon" id="sizing-addon2">tags--></span>
+      <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon2"   id="delimageTags" name="delimageTags" style="">
+      
+    </div>
+<!--       <span>镜像名：</span>
+        <input  id="delimage"  name="delimage" readonly="readonly" /> 
+        </br>
+        <span>tags：</span>
+        <input  id="delimageTags" name="delimageTags" style="" /> -->
+        <span></br><font style="color: red">温馨提示：</font>若镜像有多个tag，请只留想删除的tag,同时将逗号去掉</span>
+        <input  id="mylast" name="last" style="display: none;" />
+        <input  name="ordel" value="del" style="display: none;" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="submit" class="btn btn-primary btn-warning">确认删除</button>
+
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+
+<script type="text/javascript">
+  function send(m,n){
+    $("#delimage").val(m);
+    $("#delimageTags").val(n);
+    var str=window.location.href
+
+    $("#mylast").val(str.split("last=")[1]);
+  }
+  // function submit(){
+  //    window.location.href="/distribution?del=$("#haha").val()&last= $("#mylast").val()";
+  // }
+</script>
+ 
+
+
+
+
+
+
+
+</div>
+
+{{template "foot.tpl" . }}

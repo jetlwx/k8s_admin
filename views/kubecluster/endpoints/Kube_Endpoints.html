@@ -1,0 +1,88 @@
+ {{template "/head.tpl" .}} {{template "/top1.tpl" .}}
+<div class="bs-docs-example" style="padding-top: 15px;">
+    <div>
+        <button type="button" class="btn btn-default">+ Add an Endpoints</button>
+    </div>
+    <table class="table table-hover ">
+        <thead>
+            <tr>
+                <th class="text-center">Name</th>
+                <th class="text-center">NameSpace</th>
+                <th class="text-center">Labels</th>
+                <th class="text-center">Ports</th>
+                <th class="text-center">Pods</th>
+                <th class="text-center">Ages</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{range .EndPoints.Items}}
+           
+            <tr class="text-center lh30px">
+                <td class="text-v-center  ">
+                   {{.Metadata.Name}}
+                </td>
+                <td class="text-v-center  ">
+                    {{.Metadata.Namespace}}
+                </td>
+                <td class="text-v-center tleft ">
+                    {{range $x,$y := .Metadata.Labels}}
+                    <div>{{$x}} : {{$y}}</div>
+                    {{end}}
+                </td>
+                <td class="text-v-center  ">
+                   {{range .Subsets}}
+                   {{range .Ports}}
+                   {{.Protocol}}/{{.Port}}<br>
+                   {{end}}
+                   {{end}}
+                </td>
+                <td class="text-v-center  tleft">
+                   {{range .Subsets}}
+                    {{range .Addresses}}
+                       {{.Ip}}-> {{.TargetRef.Namespace}} -> {{.TargetRef.Name}}<br>
+                    {{end}}
+                    {{end}}
+                </td>
+                <td class="text-v-center  tleft">
+                    {{.Ages}}
+                </td>
+                <td class="text-v-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" onclick="return send({{.Metadata.Name}},{{.Metadata.Namespace}})">Detail</button>
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                            <span class="sr-only">切换下拉菜单</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="divider"></li>
+                            <li style="padding-top: 5px;padding-bottom: 5px;"><a href="#" style=" text-align: center; line-height: 20px;">Update</a></li>
+                            <li class="divider" style="padding: 0px;"></li>
+                            <li><a href="#" style="margin:0px; text-align: center;">Delete</a></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+          {{end}}
+        </tbody>
+    </table>
+</div>
+{{template "/poplayer.tpl" .}}
+
+
+{{template "/foot.tpl" .}}
+<script type="text/javascript">
+function send(m, n) {
+    // $("#"+m).click(function(){  
+
+    var frameSrc = "/kubecluster/specEndpoints?name=" + m + "&namespace=" + n;
+    //alert(frameSrc);  
+    $("#NoPermissioniframe").attr("src", frameSrc);
+    $('#NoPermissionModal').modal({
+        show: true,
+        backdrop: 'static'
+    });
+    // });  
+}
+</script>
+<!--弹出模 over-->

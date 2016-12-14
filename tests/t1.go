@@ -1,0 +1,43 @@
+package main
+
+// import (
+// 	"golang.org/x/net/websocket"
+
+// 	"log"
+// 	"net/http"
+// )
+
+// func echoHandler(ws *websocket.Conn) {
+//     msg := make([]byte, 512)
+//     n, err := ws.Read(msg)
+//     if err != nil {
+//         log.Fatal(err)
+//     }
+//     fmt.Printf("Receive: %s\n", msg[:n])
+
+//     send_msg := "[" + string(msg[:n]) + "]"
+//     m, err := ws.Write([]byte(send_msg))
+//     if err != nil {
+//         log.Fatal(err)
+//     }
+
+//     fmt.Printf("Send: %s\n", msg[:m])
+// }
+
+func main() {
+	var c = make(chan bool)
+
+	for i := 0; i < 10; i++ {
+		c <- true
+	}
+	for {
+		m := <-c
+		if m == false {
+			break
+		}
+	}
+}
+
+// func a(){
+//     fals
+//     retur

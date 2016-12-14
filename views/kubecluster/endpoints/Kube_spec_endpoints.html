@@ -1,0 +1,71 @@
+{{template "/headCssJs.tpl" .}}
+<div class="bs-docs-example" style="padding-top: 15px;">
+    <table class="table table-hover ">
+        <thead>
+            <tr>
+                <th class="text-center">Items</th>
+                <th class="text-center">Messages</th>
+                       
+            </tr>
+        </thead>
+          {{ with .SPECENDPOINTS}}
+        <tbody>
+   
+         <tr class="text-center lh30px">    
+           <td class="text-v-center fb ">Kind</td>
+            <td class="text-v-center tleft ">{{.Kind}}</td>             
+         </tr>
+                  <tr class="text-center lh30px">    
+           <td class="text-v-center fb ">ApiVersion</td>
+            <td class="text-v-center tleft ">{{.APIVersion}}</td>             
+         </tr>
+                  <tr class="text-center lh30px">    
+           <td class="text-v-center fb ">Metadata</td>
+            <td class="text-v-center  ">
+             <div class="tleft">Name: {{.Metadata.Name}}</div>
+             <div class="tleft">Namespace: {{.Metadata.Namespace}}</div>
+             <div class="tleft">SelfLink: {{.Metadata.SelfLink}}</div>
+             <div class="tleft">ResourceVersion: {{.Metadata.ResourceVersion}}</div>
+             <div class="tleft">CreationTimestamp: {{.Metadata.CreationTimestamp}}</div>
+             <div class="tleft">Labels: </br>
+             {{ range $x,$y := .Metadata.Labels}} 
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $x}} : {{$y}}</br>
+                 {{end}}
+             </div>
+            </td>             
+         </tr>
+         {{range .Subsets}}
+         {{range $k,$v:= .Addresses}}
+          <tr class="text-center lh30px">    
+           <td class="text-v-center fb ">Subsets{{$k}}</td>
+            <td class="text-v-center  ">
+            <div class="tleft">Ip: {{.Ip}}</div>
+            <div class="tleft">TargetRef:</br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kind: {{.TargetRef.Kind}}</br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name: {{.TargetRef.Kind}}</br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Namespace: {{.TargetRef.Namespace}}</br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uid: {{.TargetRef.Uid}}</br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resourceVersion: {{.TargetRef.ResourceVersion}}</br>
+            </div>
+                       </td>             
+         </tr>
+        {{end}}
+            
+             <tr class="text-center lh30px">    
+           <td class="text-v-center fb ">Ports</td>
+            <td class="text-v-center  ">
+            {{range .Ports}}
+                <div class="tleft">Name: {{.Name}}&nbsp;&nbsp;&nbsp;&nbsp;Port: {{.Port}}&nbsp;&nbsp;&nbsp;&nbsp;Protocol: {{.Protocol}}</div>
+            {{end}}
+            </td>
+            </tr>
+             
+       {{end}}
+
+                     </tbody>
+     
+        
+        
+        {{end }}
+    </table>
+</div>

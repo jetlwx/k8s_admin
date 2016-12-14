@@ -1,0 +1,168 @@
+{{template "/headCssJs.tpl" .}}
+<div class="bs-docs-example" style="padding-top: 15px;">
+    <table class="table table-hover ">
+        <thead>
+            <tr>
+                <th class="text-center">Items</th>
+                <th class="text-center">Messages</th>
+                       
+            </tr>
+        </thead>
+        
+        <tbody>
+   {{ with .SPECNode}}
+         <tr class="text-center lh30px">
+           <td class="text-v-center  ">Kind</td>
+            <td class="text-v-center tleft ">
+             {{.Kind}}  
+            </td>             
+         </tr>
+         <tr class="text-center lh30px">
+           <td class="text-v-center  ">APIVersion</td>
+            <td class="text-v-center tleft ">
+             {{.APIVersion}}  
+            </td>             
+         </tr>
+          <tr class="text-center lh30px">
+           <td class="text-v-center  ">ExternalID</td>
+            <td class="text-v-center tleft ">
+             {{.Spec.ExternalID}}  
+            </td>             
+         </tr>
+          <tr class="text-center lh30px">
+           <td class="text-v-center  ">Port</td>
+            <td class="text-v-center tleft ">
+             {{.Status.DaemonEndpoints.KubeletEndpoint.Port}}  
+            </td>             
+         </tr>
+     <tr class="text-center lh30px">
+           <td class="text-v-center  ">Metadata</td>
+            <td class="text-v-center tleft  ">
+             {{with .Metadata}}
+             <div>SelfLink:  {{.SelfLink}}</div> 
+             <div>UID:  {{.UID}}</div> 
+             <div>SesourceVersion:  {{.ResourceVersion}}</div> 
+             <div>CreationTimestamp:  {{.CreationTimestamp}}</div> 
+             <div>Labels:</br>
+                 {{range $x,$y := .Labels}}
+                   &nbsp;&nbsp;&nbsp;&nbsp;{{$x}} : {{$y}}
+                 {{end}}
+               </div> 
+             {{end}}
+            </td>             
+         </tr>
+
+          {{with .Status}}
+          <tr class="text-center lh30px">
+           <td class="text-v-center  ">Addresses</td>
+            <td class="text-v-center tleft ">
+             {{range .Addresses}}
+              <div> {{.Type}} : {{.Address}}</div>
+             {{end}}  
+            </td>             
+         </tr>
+        <tr class="text-center lh30px">
+           <td class="text-v-center  ">Capacity</td>
+            <td class="text-v-center tleft ">
+             {{range $ck,$cv := .Capacity}}
+              <div> {{$ck}} : {{$cv}}</div>
+             {{end}}  
+            </td>             
+         </tr>
+
+         <tr class="text-center lh30px">
+           <td class="text-v-center  ">Allocatable</td>
+            <td class="text-v-center tleft ">
+             {{range $ak,$av := .Allocatable}}
+              <div> {{$ak}} : {{$av}}</div>
+             {{end}}  
+            </td>             
+         </tr>
+           
+         <tr class="text-center lh30px">
+           <td class="text-v-center  ">Conditions</td>
+            <td class="text-v-center tleft ">
+            {{range .Conditions}}
+            <div style="padding-bottom: 10px;">
+              <div>Type : {{.Type}}</div>
+              <div>Status : {{.Status}}</div>
+              <div>LastHeartbeatTime : {{.LastHeartbeatTime}}</div>
+              <div>LastTransitionTime : {{.LastTransitionTime}}</div>
+              <div>Reason : {{.Reason}}</div>
+              <div>Message : {{.Message}}</div>
+              </div>
+              {{end}}
+            </td>             
+         </tr>
+          
+       <tr class="text-center lh30px">
+           <td class="text-v-center  ">NodeInfo</td>
+            <td class="text-v-center tleft ">
+            {{with .NodeInfo}}
+            <div style="padding-bottom: 10px;">
+              <div>MachineID : {{.MachineID}}</div>
+              <div>SystemUUID : {{.SystemUUID}}</div>
+              <div>BootID : {{.BootID}}</div>
+              <div>KernelVersion : {{.KernelVersion}}</div>
+              <div>OSImage : {{.OSImage}}</div>
+              <div>ContainerRuntimeVersion : {{.ContainerRuntimeVersion}}</div>
+              <div>KubeletVersion : {{.KubeletVersion}}</div>
+              <div>KubeProxyVersion : {{.KubeProxyVersion}}</div>
+              {{if ne .OperatingSystem "" }}<div>OperatingSystem : {{.OperatingSystem}}</div>{{end}}
+              {{if ne .Architecture "" }} <div>Architecture : {{.Architecture}}</div> {{end}}
+              </div>
+              {{end}}
+            </td>             
+         </tr>
+
+
+
+
+         {{end}} <!--status-->
+
+         
+
+
+
+
+ {{end}}
+            </tbody>
+     
+        
+        
+       
+    </table>
+</div>
+
+<div class="bs-docs-example" style="padding-top: 15px;">
+    <table class="table table-hover ">
+        <thead>
+            <tr>
+                <th class="text-center">Images</th>
+                <th class="text-center">Size</th>
+                       
+            </tr>
+        </thead>
+        
+        <tbody>
+   {{ range  .SPECNode.Status.Images}}
+         <tr class="text-center lh30px">
+           <td class="text-v-center  ">
+              {{range .Names}} 
+              <div>{{.}}</div>
+              {{end}}
+           </td>
+            <td class="text-v-center  ">
+               {{.SizeAuto}}
+            </td>             
+         </tr>
+   {{end}}
+
+
+       </tbody>
+     
+        
+        
+       
+    </table>
+</div>

@@ -1,0 +1,48 @@
+{{template "/headCssJs.tpl" .}}
+<div class="bs-docs-example" style="padding-top: 15px;">
+    <table class="table table-hover ">
+        <thead>
+            <tr>
+                <th class="text-center">Items</th>
+                <th class="text-center">Messages</th>
+                       
+            </tr>
+        </thead>
+          {{with .SpecComponets}} 
+        <tbody>
+    
+         <tr class="text-center lh30px">    
+           <td class="text-v-center fb ">Kind</td>
+            <td class="text-v-center tleft ">{{.Kind}}</td>             
+         </tr>
+          <tr class="text-center lh30px">    
+           <td class="text-v-center fb ">APIVersion</td>
+            <td class="text-v-center tleft ">{{.APIVersion}}</td>             
+         </tr>
+         {{with .Metadata}}
+                <tr class="text-center lh30px">    
+           <td class="text-v-center  fb ">Metadata</td>
+            <td class="text-v-center tleft ">
+             <div>Name:{{.Name}}</div>
+             <div>Name:{{.SelfLink}}</div>
+             <div>Name:{{.CreationTimestamp}}</div>
+            </td>             
+         </tr>
+         {{end}}
+         {{range $kx,$ky:= .Conditions}}
+          <tr class="text-center lh30px">    
+           <td class="text-v-center fb ">Conditions-{{$kx}}</td>
+            <td class="text-v-center tleft ">
+            <div>Type:{{.Type}}</div>
+            <div>status:{{.Status}}</div>
+            <div>Message:{{.Message}}</div>
+            </td>             
+         </tr>
+          {{end}}
+                     </tbody>
+     
+        
+        {{end}}
+       
+    </table>
+</div>

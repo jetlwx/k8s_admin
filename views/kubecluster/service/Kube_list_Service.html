@@ -1,0 +1,103 @@
+{{template "/head.tpl" .}}
+{{template "/top1.tpl" .}}
+
+<div class="bs-docs-example" style="padding-top: 15px;">
+   <!--  <div><span class="lh30px fw h4">Kube Cluster Service</span></div> -->
+    <table class="table table-hover ">
+        <thead>
+            <tr>
+               
+                
+                <th class="text-center">Name</th>
+                <th class="text-center">NameSpace</th> 
+                <th class="text-center">Labels</th>
+                <th class="text-center">ClusterIP</th>
+                <th class="text-center">Selector</th>
+                <th class="text-center">Ports</th>
+                <th class="text-center">Ages</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        
+             <!-- 利用RANGE 函数 循环外层数组 -->
+            <form action="" method="Get">
+            {{range .LISTSERVICES.Items}}
+                <tr class="text-center lh30px">    
+                    <td class="text-v-center  ">
+                    {{with .Metadata}}
+                        {{.Name}}
+                   
+                    </td>
+                     <td class="text-v-center  ">
+                        {{.Namespace}}
+                    </td>
+                    
+                    <td class="text-v-center tleft ">
+                       {{range $k,$v := .Labels}}
+                       <div>{{$k}}: {{$v}}</div> 
+                       {{end}}
+                    </td>
+                    {{end}}
+                    <td class="text-v-center  ">
+                      {{.Spec.ClusterIP}}
+                    </td>
+                    <td class="text-v-center  ">
+                        {{range $sk,$sv := .Spec.Selector}}
+                        {{$sk}} : {{$sv}}
+                        {{end}}
+                    </td>
+                    
+                    <td class="text-v-center  ">
+                    {{range .Spec.Ports}}
+                        {{.Protocol}}/{{.Port}} -> {{.TargetPort}}</br>
+                        {{end}}
+                    </td>
+                    
+                    <td class="text-v-center  ">
+                       {{.Ages}}
+                    </td>
+                    <td class="text-v-center">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default"  onclick="return send({{.Metadata.Name}},{{.Metadata.Namespace}})">Detail</button>
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                            <span class="sr-only">切换下拉菜单</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="divider"></li>
+                            <li style="padding-top: 5px;padding-bottom: 5px;"><a href="#" style=" text-align: center; line-height: 20px;">Update</a></li>
+                            <li class="divider" style="padding: 0px;"></li>
+                            <li><a href="#" style="margin:0px; text-align: center;">Delete</a></li>
+                        </ul>
+                    </div>
+                </td>
+                </tr>
+                {{end}}
+            </form>
+
+        </tbody>
+    </table>
+</div>
+         <!--弹出模 over-->
+{{template "/poplayer.tpl" .}}
+
+
+{{template "/foot.tpl" .}}  
+
+
+
+<script type="text/javascript">
+function send(m,n) {
+    // $("#"+m).click(function(){  
+
+    var frameSrc = "/kubecluster/specServices?name=" + m + "&namespace=" + n;
+    //alert(frameSrc);  
+    $("#NoPermissioniframe").attr("src", frameSrc);
+    $('#NoPermissionModal').modal({
+        show: true,
+        backdrop: 'static'
+    });
+    // });  
+}
+</script>

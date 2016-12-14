@@ -1,0 +1,107 @@
+ {{template "/head.tpl" .}}
+<!-- <div>
+	IsKubeMaster={{ .IsKubeMaster}} {{ .IsKubeNode}} {{ .IsKubeDistribution}}
+</div> 
+<script type="text/javascript">
+$(document).ready(function(){
+  $("button").click(function(){
+   
+    $("#div2").fadeOut("slow");
+    
+  });
+});
+</script>
+<div id="div2" style="width:80px;height:80px;background-color:green;"></div>
+-->
+
+<div>
+    <ul class="nav nav-tabs">
+        <li role="presentation" {{if .IsKubeMaster}} class="active" {{end}}><a href="/sysconfig?type=KubeMaster">KubeMaster配置</a></li>
+        <li role="presentation" {{if .IsKubeNode}} class="active" {{end}}><a href="/sysconfig?type=KubeNode">Kube节点配置</a></li>
+        <li role="presentation" {{if .IsKubeDistribution}} class="active" {{end}}><a href="/sysconfig?type=KubeDistribution">仓库配置</a></li>
+    </ul>
+</div>
+<div>
+
+ 
+
+
+    <!-- KubeMaster add start -->
+    <div class="clearfix xm-bq-box" {{if .IsKubeMaster}} style="display:block;" {{else }}style="display:none;" {{end}}>
+        <form action="" method="Post">
+            <div class="clearfix pb10 border-bottom input-group mt10">
+                <span class="input-group-addon" id="basic-addon1">KubeMaster地址</span>
+                <input type="text" class="form-control" placeholder="IP或域名" aria-describedby="basic-addon1" style="height: 40px; width: 80%;" id="k1" value="{{.KubeMasterData.KubeMasterIp}}" name="kbm_url">
+            </div>
+            <div class="clearfix pb10 border-bottom input-group mt10">
+                <span class="input-group-addon" id="basic-addon1">KubeMaster端口</span>
+                <input type="text" class="form-control" placeholder="8080" aria-describedby="basic-addon1" style="height: 40px; width: 80%;" id="k2" value="{{.KubeMasterData.KubeMasterPort}}" name="kbm_port">
+            </div>
+            <div class="clearfix pb10 border-bottom input-group mt10">
+                <span class="input-group-addon" id="basic-addon1" style="width:133px; height: 38px;"> 协 议</span>
+                <span class="fl" style="margin-right: 30px; ">
+						<input   name ="kmb_protocal1" type="radio" {{ if .KubeMasterData.KubeMasterProtocol}} {{ if eq .KubeMasterData.KubeMasterProtocol "https"}}checked {{end}} {{end}}style="margin-top: 10px; margin-left: 10px;" value="https">
+								<label for="checkbox-2">https</label>
+							</span>
+                <span class="fl" style="margin-right: 30px; ">
+								<input   name ="kmb_protocal1"  type="radio"  style="margin-top: 10px; margin-left: 10px;"  value="http" {{if .KubeMasterData.KubeMasterProtocol}} {{ if eq .KubeMasterData.KubeMasterProtocol "http"}}checked {{end}} {{end}}>
+								<label for="checkbox-2">http</label>
+							</span>
+            </div>
+            <div class="w-center lh30px mt10">
+                <button type="submit" class="btn btn-default btn-lg " style="padding: 3px 20px;"><i class="fa fa-plus mr5"></i>确 定</button>
+            </div>
+        </form>
+    </div>
+   
+    <!-- KubeMaster add over -->
+    <!-- KubeDistribution  start -->
+    <div class="clearfix xm-bq-box" {{if .IsKubeDistribution}} style="display:block;" {{else }}style="display:none;" {{end}}>
+    <form action="" method="Post">
+        <div class="clearfix pb10 border-bottom input-group mt10">
+            <span class="input-group-addon" id="basic-addon1">私有仓库地址</span>
+            <input type="text" class="form-control" placeholder="IP或域名" aria-describedby="basic-addon1" style="height: 40px; width: 80%;" id="distributionUrl" value="{{ .DistributionData.DistributionUrl}}" name="distribution_url">
+        </div>
+        <div class="clearfix pb10 border-bottom input-group mt10">
+            <span class="input-group-addon" id="basic-addon1" style="width:133px; height: 38px;"> 协 议</span>
+            <span class="fl" style="margin-right: 30px; ">
+								<input   name ="distribution_protocol" type="radio"  style="margin-top: 10px; margin-left: 10px;" {{if .DistributionData.DistributionProtocol}} {{ if eq .DistributionData.DistributionProtocol "https"}}checked {{end}} {{end}} value="https">
+								<label for="checkbox-2">https</label>
+							</span>
+            <span class="fl" style="margin-right: 30px; ">
+								<input   name ="distribution_protocol"  type="radio"  style="margin-top: 10px; margin-left: 10px;"  {{if .DistributionData.DistributionProtocol}} {{ if eq .DistributionData.DistributionProtocol "http"}}checked {{end}} {{end}} value="http">
+								<label for="checkbox-2">http</label>
+							</span>
+        </div>
+        <div class="w-center lh30px mt10">
+            <span class="fr" style="margin-top: 8px;margin-bottom: 5px;">
+							<button type="submit" class="btn btn-default btn-lg" style="padding: 3px 20px;"><i class="fa fa-plus mr5"></i>确 定</button>
+							</span>
+        </div>
+        <form action="" method="Post">
+    </div>
+    <!-- KubeDistribution  over -->
+    <script type="text/javascript">
+    function backToHome() {
+        window.location.href = "/sysconfig";
+        return false;
+    }
+
+    function checkInput() {
+        var distributionUrl = document.getElementById("distributionUrl");
+        if (distributionUrl.value.length == 0) {
+            alert("请输入仓库Url地址");
+            return false;
+        }
+        var distributionValue = document.getElementById("distributionUrl").value;
+        distributionValue = distributionValue.toLowerCase()
+        var distributionValue1 = distributionValue.indexOf("http://");
+        var distributionValue2 = distributionValue.indexOf("https://");
+        if (distributionValue1 != 0 && distributionValue2 != 0) {
+            alert("仓库地址不合要求,请以http://或https://开头")
+            return false;
+        }
+    }
+    </script>
+ 
+    {{template "/foot.tpl" .}}

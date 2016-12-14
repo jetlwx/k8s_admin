@@ -1,0 +1,147 @@
+{{template "/headCssJs.tpl" .}}
+<div class="bs-docs-example" style="padding-top: 15px;">
+    <table class="table table-hover ">
+        <!--<thead>
+            <tr>
+                <th class="text-center">Items</th>
+                <th class="text-center">Messages</th>
+
+            </tr>
+        </thead>-->
+
+        {{with .HOST}}
+        <tbody>
+            <form action="/VirtualHostMOther/Hostsubmit" method="Hostsubmit">
+                <tr class="text-center lh30px">
+                    <td class="text-v-center tleft ">Hostname</td>
+                    <td class="text-v-center tleft ">{{.Hostname}}
+                        <input name="Id" type="hidden" value="{{.Id}}"></td>
+                    </td>
+                </tr>
+                <tr class="text-center lh30px">
+
+                    <td class="text-v-center  tleft" style="width:200px;">WebsocketAgentPort
+                        <font color=red> *</font>
+                    </td>
+                    <td class="text-v-center tleft ">
+                        <div id="WebsocketAgentPortdiv">
+                            <input id="WebsocketAgentPort" name="WebsocketAgentPort" type="text" class="form-control" placeholder="10009" value="{{.WebsocketAgentPort}}">
+                        </div>
+                    </td>
+                </tr>
+
+                <tr class="text-center lh30px">
+                    <td class="text-v-center  tleft" style="width:200px;">ImageTemplatePath1
+                        <font color=red> *</font>
+                    </td>
+                    <td class="text-v-center tleft ">
+                        <div id="ImageTemplatePath1div">
+                            <input id="ImageTemplatePath1" name="ImageTemplatePath1" type="text" class="form-control" placeholder="/data/qemu-images/mother.img"
+                                value="{{.ImageTemplatePath1}}">
+                        </div>
+                    </td>
+                </tr>
+                <tr class="text-center lh30px">
+                    <td class="text-v-center  tleft" style="width:200px;">XmlTemplatePath1
+                        <font color=red> *</font>
+                    </td>
+                    <td class="text-v-center tleft ">
+                        <div id="XmlTemplatePath1div">
+                            <input id="XmlTemplatePath1" name="XmlTemplatePath1" type="text" class="form-control" placeholder="/etc/libvirt/qemu/mother.xml"
+                                value="{{.XmlTemplatePath1}}">
+                        </div>
+                    </td>
+                </tr>
+                <tr class="text-center lh30px">
+                    <td class="text-v-center  tleft" style="width:200px;">ImageTemplatePath2(option)
+
+                    </td>
+                    <td class="text-v-center tleft ">
+                        <input id="ImageTemplatePath2" name="ImageTemplatePath2" type="text" class="form-control" placeholder="/data/qemu-images/mother.img"
+                            value="{{.ImageTemplatePath2}}">
+
+                    </td>
+                </tr>
+                <tr class="text-center lh30px">
+                    <td class="text-v-center  tleft" style="width:200px;">XmlTemplatePath2(option)
+
+                    </td>
+                    <td class="text-v-center tleft ">
+                        <input id="XmlTemplatePath2" name="XmlTemplatePath2" type="text" class="form-control" placeholder="/etc/libvirt/qemu/mother.xml"
+                            value="{{.XmlTemplatePath2}}">
+
+                    </td>
+                </tr>
+                <tr class="text-center lh30px">
+                    <td class="text-v-center  tleft" style="width:200px;">ImageTemplatePath3(option)
+
+                    </td>
+                    <td class="text-v-center tleft ">
+                        <input id="ImageTemplatePath3" name="ImageTemplatePath3" type="text" class="form-control" placeholder="/data/qemu-images/mother.img"
+                            value="{{.ImageTemplatePath3}}">
+
+                    </td>
+                </tr>
+                <tr class="text-center lh30px">
+                    <td class="text-v-center  tleft" style="width:200px;">XmlTemplatePath3(option)
+
+                    </td>
+                    <td class="text-v-center tleft ">
+                        <input id="XmlTemplatePath3" name="XmlTemplatePath3" type="text" class="form-control" placeholder="/etc/libvirt/qemu/mother.xml"
+                            value="{{.XmlTemplatePath3}}">
+
+                    </td>
+                </tr>
+                <tr class="text-center lh30px">
+                    <td class="text-v-center  tleft" style="width:200px;">ImageTemplatePath4(option)
+
+                    </td>
+                    <td class="text-v-center tleft ">
+                        <input id="ImageTemplatePath4" name="ImageTemplatePath4" type="text" class="form-control" placeholder="/data/qemu-images/mother.img"
+                            value="{{.ImageTemplatePath4}}">
+
+                    </td>
+                </tr>
+                <tr class="text-center lh30px">
+                    <td class="text-v-center  tleft" style="width:200px;">XmlTemplatePath4(option)
+
+                    </td>
+                    <td class="text-v-center tleft ">
+                        <input id="XmlTemplatePath4" name="XmlTemplatePath4" type="text" class="form-control" placeholder="/etc/libvirt/qemu/mother.xml"
+                            value="{{.XmlTemplatePath4}}">
+
+                    </td>
+                </tr>
+                <tr class="text-center lh30px">
+                    <td class="text-v-center  tleft" style="width:200px;">ImageTemplatePath5(option)
+
+                    </td>
+                    <td class="text-v-center tleft ">
+                        <input id="ImageTemplatePath5" name="ImageTemplatePath5" type="text" class="form-control" placeholder="/data/qemu-images/mother.img"
+                            value="{{.ImageTemplatePath5}}">
+
+                    </td>
+                </tr>
+                <tr class="text-center lh30px">
+                    <td class="text-v-center  tleft" style="width:200px;">XmlTemplatePath5(option)
+
+                    </td>
+                    <td class="text-v-center tleft ">
+                        <input id="XmlTemplatePath5" name="XmlTemplatePath5" type="text" class="form-control" placeholder="/etc/libvirt/qemu/mother.xml"
+                            value="{{.XmlTemplatePath5}}">
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-center">
+                        <button type="submit" class="btn btn-default">Submit</button>
+
+                    </td>
+                </tr>
+            </form>
+
+        </tbody>
+
+        {{end }}
+    </table>
+</div>

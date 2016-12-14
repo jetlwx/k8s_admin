@@ -1,0 +1,47 @@
+<html>
+    <head>
+{{template "/headCssJs.tpl" .}}
+    </head>
+    <body>
+{{if .IsMsg}}
+<div>
+    {{str2html .Msg}}
+</div>
+{{end}}
+
+{{if .IsGetDomainDiskList}}
+<div id="detachdisk" style="display:block;">
+<table><tr>
+    <td>TargetDevice</td> 
+    <td>
+    <select class="form-control" id="targetdevice" name="targetdevice">
+        {{range .DiskList}}
+  <option value="{{.}}">{{.}}</option>
+   {{end}}
+</select>
+    </td>
+    <td>
+        <input type="hidden" id="hostip" value="{{.Hostip}}" />
+         <input type="hidden" id="vmname" value="{{.Vmname}}" />
+         {{if .DeleteFromDomain}}
+        <button type="button" title="Detach the target Device and delete imgs file on the server" name="submit" class="btn btn-default m10" onclick="return sendtome('DetachDomainTargetDisk')">Detach</button>
+         {{end}}
+         {{if .DetachDomainAndXMLTargetDisk}}
+        <button type="button" title="Detach the target Device and delete imgs file on the server and XML configfile and delete disk images file" name="submit" class="btn btn-danger m10" onclick="return sendtome('DetachDomainAndXMLTargetDisk')">DetachAll</button>
+         {{end}}
+    </td>
+</tr></table>
+</div>
+{{end}}
+
+    </body>
+</html>
+
+<script language="javascript" type="text/javascript">
+       function sendtome(m){ 
+        var hostip = document.getElementById("hostip").value;
+        var vmname = document.getElementById("vmname").value;
+        var targetdevice = $('#targetdevice option:selected').val();
+   window.location.href="/VirtualOperation/DomainCommand?type="+m+"&hostip="+hostip+"&vmname="+vmname+"&targetdevice="+targetdevice;   
+    }
+    </script>

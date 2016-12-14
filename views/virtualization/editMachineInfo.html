@@ -1,0 +1,73 @@
+{{template "/headCssJs.tpl" .}}
+<div class="bs-docs-example" style="padding-top: 15px;">
+    <table class="table table-hover ">
+        <thead>
+            <tr>
+                <th class="text-center">Items</th>
+                <th class="text-center">Messages</th>
+
+            </tr>
+        </thead>
+
+        {{with .PoolInfo}}
+        <tbody>
+            <form action="" method="POST">
+                <tr class="text-center lh30px">
+                    <td class="text-v-center fb ">Id</td>
+                    <td class="text-v-center tleft ">{{.Id}}
+                        <input name="id" type="hidden" value="{{.Id}}"></td>
+                    </td>
+                </tr>
+                <tr class="text-center lh30px">
+                    <td class="text-v-center fb ">IP</td>
+                    <td class="text-v-center tleft ">{{.Ipaddr}}</td>
+                </tr>
+                <tr class="text-center lh30px">
+                    <td class="text-v-center fb ">Hosts</td>
+                    <td class="text-v-center tleft ">
+                        {{.HostsIp }}
+</div>
+</td>
+</tr>
+
+<tr class="text-center lh30px">
+    <td class="text-v-center fb ">Useing</td>
+    <td class="text-v-center tleft ">{{.Useing}}</td>
+</tr>
+<tr class="text-center lh30px">
+    <td class="text-v-center fb ">VmName</td>
+    <td class="text-v-center tleft ">
+        <div class="form-group">
+            {{.VmName}}
+        </div>
+    </td>
+</tr>
+<tr class="text-center lh30px">
+    <td class="text-v-center fb ">VmState</td>
+    <td class="text-v-center tleft ">{{if eq .VmState ""}}-{{end}}
+
+    </td>
+</tr>
+<tr class="text-center lh30px">
+    <td class="text-v-center fb ">VmDesc</td>
+    <td class="text-v-center tleft ">
+        <div class="form-group">
+            <textarea class="form-control" name="VmDesc" rows="3" style="width:300px; " placeholder="vm description">{{.VmDesc}}</textarea>
+        </div>
+    </td>
+</tr>
+<tr>
+    <td colspan="2" class="text-center">
+        <button type="submit" class="btn btn-default">Submit</button>
+
+    </td>
+</tr>
+</form>
+
+</tbody>
+
+
+
+{{end }}
+</table>
+</div>

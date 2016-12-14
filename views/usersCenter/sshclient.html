@@ -1,0 +1,64 @@
+ {{template "/head.tpl" .}}
+
+
+ {{template "/usersCenter/tab.tpl" .}}
+
+
+    <!-- KubeMaster add start -->
+    <div class="clearfix xm-bq-box" >
+        <form action="SSHclientUp" method="POST" >
+            <div class="clearfix pb10 border-bottom input-group mt10">
+                <span class="input-group-addon" id="basic-addon1">putty.exe path</span>
+                <input type="text" class="form-control" placeholder="the putty.exe path of your computer" aria-describedby="basic-addon1" style="height: 40px; width: 80%;" id="k1"  name="putty"  value="{{.PUTTY}}">
+            </div>
+            <div class="clearfix pb10 border-bottom input-group mt10">
+                <span class="input-group-addon" id="basic-addon1">psftp.exe path</span>
+                <input type="text" class="form-control" placeholder="the psftp.exe path of your computer" aria-describedby="basic-addon1" style="height: 40px; width: 80%;" id="k2"  name="psftp" value="{{.PSFTP}}" >
+            </div>
+             <div class="w-center lh30px mt10">
+                <button type="submit" id="sub" class="btn btn-default btn-lg " style="padding: 3px 20px;" onsubmit="return checkInput()"><i class="fa fa-plus mr5"></i>Submit</button>
+            </div>
+            <div class="w-center lh30px mt10" ><font id="msg" color="red"> </font>
+            </div>
+           
+        </form>
+    </div>
+   
+    <!-- KubeMaster add over -->
+  
+    <!-- KubeDistribution  over -->
+    <script type="text/javascript">
+      function showmsg(msg) {
+             document.getElementById("msg").innerHTML=msg;
+      }
+    function checkInput() {
+        var mymsg = document.getElementById("msg");
+        var name = document.getElementById("k1");
+        if (name.value.length <= 3) {
+            showmsg("Name must't be gt 3")
+            return false;
+        }else {
+            showmsg("");
+        }
+   
+        var loginame = document.getElementById("k2");
+        if (loginame.value.length < 3) {
+             showmsg("loginname must't be gt 3")
+            return false;
+        }else {
+            showmsg("");
+        }  
+     
+      
+        
+        
+    }
+
+function CheckStr(str){
+            var myReg = /^[^@\/\'\\\"#$%&\^\*]+$/;
+            if(myReg.test(str)) return true; 
+            return false; 
+        }
+    </script>
+ 
+    {{template "/foot.tpl" .}}

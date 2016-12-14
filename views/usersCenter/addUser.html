@@ -1,0 +1,103 @@
+ {{template "/head.tpl" .}}
+
+
+ {{template "/usersCenter/tab.tpl" .}}
+
+
+    <!-- KubeMaster add start -->
+    <div class="clearfix xm-bq-box" >
+        <form action="Post" method="POST" >
+            <div class="clearfix pb10 border-bottom input-group mt10">
+                <span class="input-group-addon" id="basic-addon1">Name</span>
+                <input type="text" class="form-control" placeholder="Your name" aria-describedby="basic-addon1" style="height: 40px; width: 80%;" id="k1"  name="name" >
+            </div>
+            <div class="clearfix pb10 border-bottom input-group mt10">
+                <span class="input-group-addon" id="basic-addon1">Login Name</span>
+                <input type="text" class="form-control" placeholder="login name" aria-describedby="basic-addon1" style="height: 40px; width: 80%;" id="k2"  name="loginname" >
+            </div>
+             
+            <div class="clearfix pb10 border-bottom input-group mt10">
+                <span class="input-group-addon" id="basic-addon1">Password</span>
+                <input type="password" class="form-control" placeholder="login password,just allow a-z and 0-9,min lenght=5" aria-describedby="basic-addon1" style="height: 40px; width: 80%;" id="k3"  name="password1"  >
+            </div>
+            <div class="clearfix pb10 border-bottom input-group mt10">
+                <span class="input-group-addon" id="basic-addon1">Password</span>
+                <input type="password" class="form-control" placeholder="login password,just allow a-z and 0-9,min lenght=5" aria-describedby="basic-addon1" style="height: 40px; width: 80%;" id="k4"  name="password2"  >
+            </div>
+            <div class="clearfix pb10 border-bottom input-group mt10">
+                <span class="input-group-addon" id="basic-addon1">Role</span>
+                <select name="role"  class="form-control" style="width:100px;">
+<option value="user" >user</option>
+<option value="admin" >admin</option>
+</select>
+            </div>
+             <div class="clearfix pb10 border-bottom input-group mt10">
+                <span class="input-group-addon" id="basic-addon1">State</span>
+                <select name="role"  class="form-control" style="width:100px;">
+<option value="1" >True</option>
+<option value="0"  selected>False</option>
+</select>
+            </div>
+
+            <div class="w-center lh30px mt10">
+                <button type="submit" id="sub" class="btn btn-default btn-lg " style="padding: 3px 20px;" onsubmit="return checkInput()"><i class="fa fa-plus mr5"></i>Submit</button>
+            </div>
+            <div class="w-center lh30px mt10" ><font id="msg" color="red"> </font>
+            </div>
+        </form>
+    </div>
+   
+    <!-- KubeMaster add over -->
+  
+    <!-- KubeDistribution  over -->
+    <script type="text/javascript">
+      function showmsg(msg) {
+             document.getElementById("msg").innerHTML=msg;
+      }
+    function checkInput() {
+        var mymsg = document.getElementById("msg");
+        var name = document.getElementById("k1");
+        if (name.value.length <= 3) {
+            showmsg("Name must't be gt 3")
+            return false;
+        }else {
+            showmsg("");
+        }
+   
+        var loginame = document.getElementById("k2");
+        if (loginame.value.length < 3) {
+             showmsg("loginname must't be gt 3")
+            return false;
+        }else {
+            showmsg("");
+        }  
+     
+         var pass = document.getElementById("k3");
+       var pass2 = document.getElementById("k4");
+        if (pass.value.length < 4) {
+            showmsg("password must't be gt 5")
+            return false;
+        }else {
+            showmsg("");
+        }   
+        if  (CheckStr(pass.value)) {
+            if (pass.value != pass2.value){
+                  showmsg("password is not match");
+                  return false;
+            }
+        }else {
+            showmsg("password have illege charset"); 
+            return false; 
+        }
+        
+        
+    }
+
+function CheckStr(str){
+            var myReg = /^[^@\/\'\\\"#$%&\^\*]+$/;
+            if(myReg.test(str)) return true; 
+            return false; 
+        }
+    </script>
+ 
+    {{template "/foot.tpl" .}}

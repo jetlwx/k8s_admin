@@ -1,0 +1,631 @@
+{{template "/headCssJs.tpl" .}}
+
+<div class="bs-docs-example" style="width: 750px; padding-top: 5px; margin-top: 5px;">
+   <!--  <div><span class=" fw h4">pod Detail</span></div> -->
+    <table class="table table-hover ">
+        <thead>
+            <tr>
+                <th class="text-center">Messages</th>    
+            </tr>
+        </thead>
+        <tbody>
+
+                <tr class="text-center" >
+{{with .SPECReplication}} <!--1-->
+            <td class="text-v-center tleft   ">
+            <div>Kind: {{.Kind}}</div>
+            <div>APIVersion: {{.APIVersion}}</div>
+            <div>Ages: {{.Ages}}</div>
+            <div>Metadata:</div>
+           {{with .Metadata}} <!-- 2 -->
+           {{if ne .Name ""}} <!-- 49 -->
+            <div class="padleft20">Name: {{.Name}}</div>
+            {{end}} <!-- 49 -->
+            {{if ne .GenerateName ""}} <!-- 50-->
+            <div class="padleft20">GenerateName: {{.GenerateName}}</div>
+            {{end}} <!-- 50 -->
+            {{if ne .Namespace ""}} <!-- 51 -->
+            <div class="padleft20">Namespace: {{.Namespace}}</div>
+            {{end}} <!--51-->
+            <div class="padleft20">SelfLink: {{.SelfLink}}</div>
+            <div class="padleft20">UID: {{.UID}}</div>
+            <div class="padleft20">ResourceVersion: {{.ResourceVersion}}</div>
+            <div class="padleft20">Generation: {{.Generation}}</div>
+            <div class="padleft20">CreationTimestamp: {{.CreationTimestamp}}</div>
+            <div class="padleft20">DeletionGracePeriodSeconds: {{.DeletionGracePeriodSeconds}}</div>
+            {{if gt (.Labels|len) 0}} <!-- 52 -->
+            <div class="padleft20">Labels: </div>
+            {{range $lk1,$lv1 := .Labels}} <!-- 11 -->
+             <div  class="padleft40">{{$lk1}}: {{$lv1}}</div>
+           {{end}} <!-- 11 -->
+            {{end}} <!-- 52 -->
+            {{if gt (.Annotations|len) 0}} <!-- 53 -->
+            <div class="padleft20">Annotations: </div>
+             {{range $a1,$a2 := .Annotations}} <!-- 48-->
+             <div class="padleft40"> {{$a1}} :{{$a2}} </div>
+             {{end}} <!-- 48-->
+             {{end}} <!-- 53-->
+
+             {{if gt (.OwnerReferences|len) 0}} <!-- 54-->
+           {{range .OwnerReferences}} <!-- 3 -->
+            <div class="padleft20">OwnerReferences: </div>
+            <div class="padleft40">APIVersion: {{.APIVersion}} </div>
+            <div class="padleft40">Kind:  {{.Kind}}  </div>
+            <div class="padleft40">Name: {{.Name}}   </div>
+            <div class="padleft40">Uid:  {{.Uid}}  </div>
+            <div class="padleft40">Controller:  {{.Controller}}  </div>
+            {{end }} <!-- 3 -->
+              {{end}} <!-- 54 -->
+
+              {{if gt (.Finalizers|len) 0 }} <!-- 55 -->
+            <div class="padleft20">{{range .Finalizers}} Finalizers: {{.}} &nbsp;&nbsp; {{end }}</div>
+              {{end}} <!-- 55 -->
+           {{end }}  <!-- 2 -->
+           <div>Spec: </div>
+           {{with .Spec}} <!-- 4 -->
+           <div  class="padleft20">Replicas: {{.Replicas}} </div>
+           {{if gt (.Selector|len) 0 }} <!-- 56 -->
+           <div  class="padleft20">Selector: </div>
+           {{range $sk,$kv := .Selector }} <!-- 5 -->
+           <div  class="padleft40">{{$sk}}: {{$kv}} </div>
+           {{end}}  <!-- 6 -->
+             {{end}} <!-- 56-->
+           {{with .Template}} <!-- 7 -->
+           <div  class="padleft20">Template: </div>
+           {{with .Metadata}} <!-- 8 -->
+           <div  class="padleft40">Metadata: </div>
+           {{if ne .Name ""}} <!-- 72 -->
+           <div  class="padleft60">Name: {{.Name}} </div>
+           {{end}} <!-- 72 -->
+           {{if ne .GenerateName ""}} <!-- 57 -->
+           <div  class="padleft60">GenerateName: {{.GenerateName}} </div>
+           {{end}} <!-- 57 -->
+           {{if ne .Namespace ""}} <!-- 58 -->
+           <div  class="padleft60">Namespace: {{.Namespace}}</div>
+           {{end}} <!-- 58-->
+            {{if ne .SelfLink ""}} <!-- 59 -->
+           <div  class="padleft60">SelfLink: {{.SelfLink}}</div>
+           {{end}} <!-- 59 -->
+           {{if ne .UID "" }} <!-- 60 -->
+           <div  class="padleft60">UID: {{.UID}}</div>
+           {{end }} <!-- 60 -->
+           {{if ne .ResourceVersion ""}} <!-- 61 -->
+           <div  class="padleft60">ResourceVersion: {{.ResourceVersion}}</div>
+           {{end}} <!-- 61-->
+           {{if ne .Generation 0}}
+           <div  class="padleft60">Generation: {{.Generation}}</div>
+           {{end}} <!-- 61 -->
+           {{if ne .DeletionTimestamp ""}} <!-- 113 -->
+           <div  class="padleft60">DeletionTimestamp: {{.DeletionTimestamp}}</div>
+           {{end}} <!-- 113 -->
+           {{if gt (.Labels|len) 0}} <!-- 62-->
+           <div  class="padleft40">Labels: </div>
+           {{range $lk,$lv := .Labels}} <!-- 10 -->
+             <div  class="padleft60">{{$lk}}: {{$lv}}</div>
+           {{end}} <!-- 10 -->
+           {{end}} <!-- 63-->
+           {{if gt (.Annotations|len) 0}} <!-- 66-->
+           <div class="padleft60">Annotations:</div> 
+           {{range $ak,$av := .Annotations}}  <!-- 64 -->
+           <div class="padleft60">{{$ak}} : {{$av}} </div>  
+           {{end}}      <!-- 65-->
+           {{end}} <!-- 66 -->
+           {{if gt (.OwnerReferences|len) 0}} <!-- 67 -->
+           {{range .OwnerReferences}} <!-- 9 -->
+            <div class="padleft60">OwnerReferences: </div>
+            <div class="padleft80">APIVersion: {{.APIVersion}} </div>
+            <div class="padleft80">Kind:  {{.Kind}}  </div>
+            <div class="padleft80">Name: {{.Name}}   </div>
+            <div class="padleft80">Uid:  {{.Uid}}  </div>
+            <div class="padleft80">Controller:  {{.Controller}}  </div>
+            {{end }} <!-- 9 -->
+              {{end}} <!-- 67 -->
+              {{if gt (.Finalizers|len) 0}} <!-- 68 -->
+            <div class="padleft60">{{range .Finalizers}} Finalizers: {{.}} &nbsp;&nbsp; {{end }}</div>
+            {{end}} <!-- 68-->
+           {{end}} <!-- 8 -->
+            
+           {{with .Spec}} <!-- 11 -->
+
+
+
+            <div  class="padleft40">Spec: </div>
+            {{if  ne .NodeName ""}} <!--69 -->
+            <div  class="padleft60">NodeName: {{.NodeName}}</div>
+            {{end }} <!-- 69-->
+            {{if ne .Hostname ""}} <!--70 -->
+             <div  class="padleft60">Hostname: {{.Hostname}}</div>
+             {{end}} <!-- 70 -->
+              {{if .ActiveDeadlineSeconds}} <!-- 86 -->
+             <div  class="padleft60">ActiveDeadlineSeconds: {{.ActiveDeadlineSeconds}}</div>
+               {{end}} <!-- 86 -->
+             <div  class="padleft60">TerminationGracePeriodSeconds: {{.TerminationGracePeriodSeconds}}</div>
+             {{if ne .ServiceAccountName ""}} <!-- 73 -->
+             <div  class="padleft60">ServiceAccountName: {{.ServiceAccountName}}</div>
+             {{end }} <!-- 73 -->
+
+      
+             {{if ne .Subdomain ""}} <!-- 74 -->
+             <div  class="padleft60">Subdomain: {{.Subdomain}}</div>
+             {{end}} <!-- 74 -->
+             {{if ne .RestartPolicy ""}} <!-- 75 -->
+            <div  class="padleft60">RestartPolicy: {{.RestartPolicy}}</div>
+            {{end}} <!-- 75 -->
+            {{with .SecurityContext}} <!-- 12 -->
+            <div  class="padleft60">SecurityContext: </div>
+            <div  class="padleft80">HostNetwork: {{.HostNetwork}}</div>
+            <div  class="padleft80">HostPID: {{.HostPID}}</div>
+            <div  class="padleft80">HostIPC: {{.HostIPC}}</div>
+              {{if .RunAsUser}} <!-- 82 -->
+            <div  class="padleft80">RunAsUser: {{.RunAsUser}}</div>
+              {{end }} <!-- 82 -->
+              {{if .FSGroup }} <!-- 87 -->
+            <div  class="padleft80">FSGroup: {{.FSGroup}}</div>
+            {{end}} <!-- 87 -->
+            {{if gt (.SupplementalGroups|len) 0}} <!-- 76-->
+            <div  class="padleft80">SupplementalGroups: {{ range .SupplementalGroups}} {{.}}&nbsp;&nbsp;{{end}} </div>
+            {{end}} <!-- 76 -->
+            {{if .RunAsNonRoot}} <!-- 83 -->
+            <div  class="padleft80">RunAsNonRoot: {{.RunAsNonRoot}}</div>
+            {{end}} <!-- 83 -->
+            {{with .SELinuxOptions}} <!-- 13 -->
+             <div  class="padleft60">SELinuxOptions:</div>
+            <div  class="padleft80">User: {{.User}}</div>
+            <div  class="padleft80">Role: {{.Role}}</div>
+            <div  class="padleft80">Type: {{.Type}}</div>
+            <div  class="padleft80">Level: {{.Level}}</div>
+            {{end}} <!-- 13 -->
+            {{end}} <!-- 12 -->
+            {{if gt (.ImagePullSecrets|len) 0}} <!-- 77 -->
+            <div  class="padleft60">ImagePullSecrets: {{range .ImagePullSecrets}} {{.Name}}&nbsp;&nbsp; {{end}} </div>
+            {{end}} <!-- 77 -->
+
+           {{if gt (.Volumes|len) 0 }} <!-- 116 -->
+           {{range .Volumes}} <!-- 115 -->
+            <div  class="padleft60">Volumes:</div>
+             <div class="padleft80">Name:{{.Name}}</div>
+             {{with .VolumeSource}}  <!-- 117 -->
+              <div class="padleft80">HostPath:</div>
+              <div class="padleft100">Path:{{.HostPath.Path}}</div>
+              {{with .EmptyDir}} <!-- 118 -->
+              <div class="padleft80">EmptyDir:</div>
+              <div class="padleft100">Medium:{{.Medium}}</div>
+              {{end}} <!-- 118 -->
+              {{with .GCEPersistentDisk}} <!-- 119 -->
+              <div class="padleft80">GCEPersistentDisk:</div>
+             <div class="padleft100">PDName: {{.PDName}}</div>
+             <div class="padleft100">FSType: {{.FSType}}</div>
+             <div class="padleft100">Partition: {{.Partition}}</div>
+             <div class="padleft100">ReadOnly: {{.ReadOnly}}</div>
+              {{end}} <!-- 119 -->
+
+              {{with .AWSElasticBlockStore}} <!-- 120 -->
+              <div class="padleft80">AWSElasticBlockStore:</div>
+             <div class="padleft100">VolumeID: {{.VolumeID}}</div>
+             <div class="padleft100">FSType: {{.FSType}}</div>
+             <div class="padleft100">Partition: {{.Partition}}</div>
+             <div class="padleft100">ReadOnly: {{.ReadOnly}}</div>
+              {{end}} <!-- 120 -->
+             
+              {{with .GitRepo}} <!-- 121 -->
+              <div class="padleft80">GitRepo:</div>
+             <div class="padleft100">Repository: {{.Repository}}</div>
+             <div class="padleft100">Revision: {{.Revision}}</div>
+             <div class="padleft100">Directory: {{.Directory}}</div>
+              {{end}} <!-- 121 -->
+
+              {{with .Secret}} <!-- 122 -->
+              <div class="padleft80">Secret:</div>
+             <div class="padleft100">SecretName: {{.SecretName}}</div>
+             <div class="padleft100">Items:</div>
+             {{range .Items}} <!-- 123-->
+             <div class="padleft120">{{.Key}}: {{.Path}}</div>
+             {{end}} <!-- 123 -->
+              {{end}} <!-- 122 -->
+
+               {{with .NFS}} <!-- 124 -->
+              <div class="padleft80">NFS:</div>
+             <div class="padleft100">Server: {{.Server}}</div>
+             <div class="padleft100">Path: {{.Path}}</div>
+             <div class="padleft100">ReadOnly: {{.ReadOnly}}</div>
+              {{end}} <!-- 124 -->
+
+               {{with .ISCSI}} <!-- 125 -->
+              <div class="padleft80">ISCSI:</div>
+             <div class="padleft100">TargetPortal: {{.TargetPortal}}</div>
+             <div class="padleft100">IQN: {{.IQN}}</div>
+             <div class="padleft100">Lun: {{.Lun}}</div>
+             <div class="padleft100">ISCSIInterface: {{.ISCSIInterface}}</div>
+             <div class="padleft100">FSType: {{.FSType}}</div>
+             <div class="padleft100">ReadOnly: {{.ReadOnly}}</div>
+              {{end}} <!-- 125 -->
+
+              {{with .Glusterfs}} <!-- 126 -->
+              <div class="padleft80">Glusterfs:</div>
+             <div class="padleft100">EndpointsName: {{.EndpointsName}}</div>
+             <div class="padleft100">Path: {{.Path}}</div>
+             <div class="padleft100">ReadOnly: {{.ReadOnly}}</div>
+              {{end}} <!-- 126 -->
+             
+              {{with .PersistentVolumeClaim}} <!-- 127 -->
+              <div class="padleft80">PersistentVolumeClaim:</div>
+             <div class="padleft100">ClaimName: {{.ClaimName}}</div>
+             <div class="padleft100">ReadOnly: {{.ReadOnly}}</div>
+              {{end}} <!-- 127 -->
+
+              {{with .RBD}} <!-- 128 -->
+              <div class="padleft80">RBD:</div>
+             <div class="padleft100">CephMonitors:</div>
+             {{range $k,$k2 := .CephMonitors}} <!-- 129 -->
+             <div class="padleft120"> {{$k2}}</div>
+             {{end}} <!-- 129 -->
+             <div class="padleft10">RBDImage: {{.RBDImage}}</div>
+             <div class="padleft100">FSType: {{.FSType}}</div>
+             <div class="padleft100">RBDPool: {{.RBDPool}}</div>
+             <div class="padleft100">RadosUser: {{.RadosUser}}</div>
+             <div class="padleft100">Keyring: {{.Keyring}}</div>
+             <div class="padleft100">SecretRef:</div>
+             <div class="padleft120">Name: {{.SecretRef.Name}}</div>
+             <div class="padleft100">ReadOnly: {{.ReadOnly}}</div>
+              {{end}} <!-- 128 -->
+
+              {{with .FlexVolume}} <!-- 130 -->
+              <div class="padleft80">FlexVolume:</div>
+             <div class="padleft100">Driver: {{.Driver}}</div>
+             <div class="padleft100">FSType: {{.FSType}}</div>
+             <div class="padleft100">SecretRef:</div>
+             <div class="padleft100">Name: {{.SecretRef.Name}}</div>
+             <div class="padleft100">ReadOnly: {{.ReadOnly}}</div>
+             <div class="padleft100">Options: </div>
+             {{range $ik,$iv := .Options}} <!-- 131 -->
+             <div class="padleft120">{{$ik}} : {{$iv}} </div>
+             {{end}} <!-- 131 -->
+              {{end}} <!-- 130 -->
+               
+              {{with .Cinder}} <!-- 132 -->
+              <div class="padleft80">Cinder:</div>
+             <div class="padleft100">VolumeID: {{.VolumeID}}</div>
+             <div class="padleft100">FSType: {{.FSType}}</div>
+             <div class="padleft100">ReadOnly: {{.ReadOnly}}</div>
+              {{end}} <!-- 132 -->
+             
+              {{with .CephFS}} <!-- 133 -->
+              <div class="padleft80">CephFS:</div>
+             <div class="padleft100">Monitors: </div>
+             {{range $mk,$mv := .Monitors}} <!-- 134 -->
+             <div class="padleft120">{{$mv}}</div>
+             {{end}} <!-- 134 -->
+             <div class="padleft100">Path: {{.Path}}</div>
+             <div class="padleft100">User: {{.User}}</div>
+             <div class="padleft100">SecretFile: {{.SecretFile}}</div>
+             <div class="padleft100">SecretRef:</div>
+             <div class="padleft120">Name: {{.SecretRef.Name}}</div>
+             <div class="padleft100">ReadOnly: {{.ReadOnly}}</div>
+              {{end}} <!-- 133 -->
+ 
+              {{with .Flocker}} <!-- 135 -->
+              <div class="padleft80">Flocker:</div>
+             <div class="padleft100">DatasetName: {{.DatasetName}}</div>
+              {{end}} <!-- 135 -->
+
+              {{with .DownwardAPI}} <!-- 136 -->
+              <div class="padleft80">DownwardAPI:</div>
+             <div class="padleft100">Items:</div>
+             {{range .Items}} <!-- 137 -->
+             <div class="padleft100">Path:{{.Path}}</div>
+             <div class="padleft100">FieldRef:</div>
+             <div class="padleft120">APIVersion:{{.FieldRef.APIVersion}}</div>
+             <div class="padleft120">FieldPath:{{.FieldRef.FieldPath}}</div>
+             {{with .ResourceFieldRef}} <!-- 138 -->
+             <div class="padleft100">ResourceFieldRef:</div>
+             <div class="padleft120">ContainerName:{{.ContainerName}}</div>
+             <div class="padleft120">Resource:{{.Resource}}</div>
+             <div class="padleft120">Divisor:{{.Divisor}}</div>
+               {{end}} <!-- 138 -->
+             {{end}} <!-- 137 -->
+              {{end}} <!-- 136 -->
+
+               {{with .FC}} <!-- 139 -->
+              <div class="padleft80">FC:</div>
+             <div class="padleft100">TargetWWNs: </div>
+             {{range $tk,$tv := .TargetWWNs}} <!-- 140 -->
+             <div class="padleft120"> {{$tv}}</div>
+              {{end}} <!-- 140 -->
+              <div class="padleft100">Lun:{{.Lun}} </div>
+              <div class="padleft100">FSType: {{.FSType}}</div>
+              <div class="padleft100">ReadOnly:{{.ReadOnly}} </div>
+              {{end}} <!-- 139 -->
+
+               {{with .AzureFile}} <!-- 140 -->
+              <div class="padleft80">AzureFile:</div>
+             <div class="padleft100">SecretName: {{.SecretName}}</div>
+             <div class="padleft100">ShareName: {{.ShareName}}</div>
+             <div class="padleft100">ReadOnly: {{.ReadOnly}}</div>
+              {{end}} <!-- 140 -->
+              
+               {{with .ConfigMap}} <!-- 141 -->
+              <div class="padleft80">ConfigMap:</div>
+             <div class="padleft100">Name: {{.Name}}</div>
+             <div class="padleft100">Items:</div>
+             {{range $kt,$kv := .Items}} <!-- 142 -->
+             <div class="padleft100">{{$kt}}: {{$kv}}</div>
+             {{end}} <!-- 142 -->
+              {{end}} <!-- 141 -->
+
+               {{with .VsphereVolume}} <!-- 143 -->
+              <div class="padleft80">VsphereVolume:</div>
+             <div class="padleft100">VolumePath: {{.VolumePath}}</div>
+             <div class="padleft100">FSType: {{.FSType}}</div>
+              {{end}} <!-- 143 -->
+
+
+             {{end}} <!-- 117 -->
+            {{end}}  <!-- 115-->
+             {{end}} <!-- 116 -->
+
+            <div  class="padleft60">Containers:</div>
+            {{range .Containers}} <!-- 14 -->
+            {{if ne .Name ""}} <!-- 78 -->
+            <div  class="padleft60">-  Name:{{.Name}}</div>
+            {{end}} <!-- 78 -->
+            <div  class="padleft70">Image: {{.Image}}</div>
+            {{if gt (.Command|len) 0}} <!-- 79 -->
+            <div  class="padleft70">Command:</div>
+            {{range .Command}}  <!-- 15 -->            
+            <div  class="padleft80">{{.}}</div>
+              {{end}} <!-- 15 -->
+              {{end}} <!-- 79-->
+              {{if gt (.Args|len) 0}} <!-- 80 -->
+            <div  class="padleft70">Args:</div>
+            {{range .Args}} <!-- 16 -->
+            <div  class="padleft80">{{.}}</div>
+            {{end}} <!-- 16 -->
+            {{end}} <!-- 80 -->
+            {{if ne .WorkingDir ""}} <!-- 81 -->
+            <div  class="padleft70">WorkingDir: {{.WorkingDir}}</div>
+            {{end}} <!-- 81 -->
+            <div  class="padleft70">TerminationMessagePath: {{.TerminationMessagePath}}</div>
+            <div  class="padleft70">ImagePullPolicy: {{.ImagePullPolicy}}</div>
+            <div  class="padleft70">StdinOnce: {{.StdinOnce}}</div>
+            <div  class="padleft70">TTY: {{.TTY}}</div>
+            <div  class="padleft70">Stdin: {{.Stdin}}</div>
+            {{with .SecurityContext}} <!-- 17 -->
+            <div  class="padleft70">SecurityContext: </div>
+            {{with .Capability}} <!-- 18 -->
+            <div  class="padleft90">Capabilities: </div>
+            {{if gt (.Add|len) 0}} <!-- 86 -->
+            <div  class="padleft110">Add: {{range .Add}} {{.}} {{end }}</div>
+            {{end}} <!-- 86-->
+            {{if gt (.Drop|len) 0}} <!-- 87 -->
+            <div  class="padleft110">Drop: {{range .Drop}} {{.}} {{end }} </div>
+            {{end}} <!-- 87 -->
+             <div class="padleft90">Privileged:{{.Privileged}}</div>
+             {{if .RunAsUser}} <!-- 88 -->
+            <div class="padleft90">RunAsUser:{{.RunAsUser}}</div>
+            {{end}} <!-- 88-->
+            {{if .RunAsNonRoot}} <!-- 89 -->
+            <div class="padleft90">RunAsNonRoot:{{.RunAsNonRoot}}</div>
+            {{end}} <!-- 89-->
+            <div class="padleft90">ReadOnlyRootFilesystem:{{.ReadOnlyRootFilesystem}}</div>
+            {{with .SELinuxOptions}}  <!-- 19 -->
+            <div class="padleft140">SELinuxOptions:</div>
+            <div class="padleft160">User: {{.User}}</div>
+            <div class="padleft160">Role: {{.Role}}</div>
+            <div class="padleft160">Type: {{.Type}}</div>
+            <div class="padleft160">Level: {{.Level}}</div>
+             {{end}} <!-- 19 -->
+            {{end}} <!-- 18 -->
+            {{end}} <!--17 -->
+            {{if gt (.Ports|len) 0}} <!-- 90 -->
+            <div  class="padleft70">Ports: </div>
+            {{range .Ports}}  <!-- 20 -->
+            {{if ne .Name ""}}  <!-- 91 -->
+            <div class="padleft90">- Name: {{.Name}}</div>
+            {{end}} <!-- 91-->
+            {{if ne .HostPort 0}} <!-- 92 -->
+            <div class="padleft100">HostPort: {{.HostPort}}</div>
+            {{end}} <!-- 92 -->
+            {{if ne .ContainerPort 0}} <!-- 93 -->
+            <div class="padleft100">ContainerPort: {{.ContainerPort}}</div>
+            {{end}} <!--93 -->  
+            {{if ne .Protocol ""}}  <!-- 94 -->
+            <div class="padleft100">Protocol: {{.Protocol}}</div>
+            {{end}} <!-- 94 -->
+            {{if ne .HostIP ""}} <!-- 95 -->
+            <div class="padleft100">HostIP: {{.HostIP}}</div>
+            {{end}} <!-- 95 -->
+            {{end}}  <!-- 20 -->
+             {{end}} <!-- 90-->
+             {{if gt (.Env|len) 0}} <!-- 96 -->
+            <div  class="padleft70">Env: </div>
+            {{range .Env}} <!-- 21 -->
+            <div  class="padleft90">-   Name: {{.Name}}</div>
+            <div  class="padleft100">Value: {{.Value}}</div>
+            {{with .ValueFrom}} <!-- 22 -->
+            <div  class="padleft100">ValueFrom: </div>
+            {{with .FieldRef}} <!-- 23 -->
+            <div  class="padleft120">FieldRef: </div>
+            <div  class="padleft140">APIVersion: {{.APIVersion}}</div>
+            <div  class="padleft140">FieldPath: {{.FieldPath}}</div>
+            {{end}} <!-- 23 -->
+             {{with .ResourceFieldRef}} <!-- 24 -->
+             <div  class="padleft120">ResourceFieldRef: </div>
+            <div  class="padleft140">ContainerName: {{.ContainerName}}</div>
+            <div  class="padleft140">Resource: {{.Resource}}</div>
+            <div  class="padleft140">Divisor: {{.Divisor}}</div>
+             {{end}}  <!-- 24 -->
+              {{with .ConfigMapKeyRef}} <!-- 25 -->
+             <div  class="padleft120">ConfigMapKeyRef: </div>
+            <div  class="padleft140">Name: {{.ConfigMapKeyRef.LocalObjectReference.Name}}</div>
+            <div  class="padleft140">Key: {{.Key}}</div>
+             {{end}}  <!-- 25 -->
+             {{with .SecretKeyRef}} <!-- 26 -->
+             <div  class="padleft120">SecretKeyRef: </div>
+            <div  class="padleft140">Name: {{.SecretKeyRef.LocalObjectReference.Name}}</div>
+            <div  class="padleft140">Key: {{.Key}}</div>
+             {{end}}  <!-- 26 -->
+
+            {{end }} <!-- 22 -->
+            {{end}} <!-- 21 -->
+            {{end}} <!-- 96 -->
+             {{if gt (.Resources.Limits|len) 0}} <!--97 -->
+            {{with .Resources}}  <!-- 27 -->
+             <div  class="padleft70">Resources: </div>
+             <div  class="padleft90">Limits: </div>
+               {{range $L1,$Lv :=.Limits}} <!-- 28 -->
+             <div  class="padleft110">{{$L1}}:{{$Lv}} </div>
+               {{end}}  <!-- 28 -->
+
+               <div  class="padleft90">Requests: </div>
+               {{range $L12,$Lv2 :=.Requests}} <!-- 29 -->
+             <div  class="padleft110">{{$L12}}:{{$Lv2}} </div>
+               {{end}}  <!-- 29 -->
+               
+            {{end}}  <!-- 27 -->
+             {{end}} <!-- 97 -->
+             {{if gt (.VolumeMounts|len) 0 }} <!-- 98 -->
+            <div  class="padleft70">VolumeMounts: </div>
+             {{range .VolumeMounts}} <!-- 30 -->
+             {{if ne .Name ""}} <!-- 110 -->
+            <div  class="padleft80">-&nbsp;Name: {{.Name}} </div>
+            {{end}} <!-- 110 -->
+            {{if ne .MountPath ""}} <!-- 111 -->
+            <div  class="padleft90">MountPath: {{.MountPath}} </div>
+            {{end}} <!-- 111 -->
+            {{if ne .SubPath ""}} <!-- 112-->
+            <div  class="padleft90">SubPath: {{.SubPath}} </div>
+            {{end}} <!-- 112 -->
+             {{end}} <!-- 30 -->
+             {{end}} <!-- 98 -->
+             {{with .LivenessProbe}}  <!-- 31 -->
+             <div class="padleft70">LivenessProbe: </div>
+             {{with .Exec}} <!-- 33 -->
+             <div class="padleft90">Exec: </div>
+             <div class="padleft110">Command: </div> 
+             <div class="padleft130">{{.Command}} </div>
+             {{end}}  <!-- 33 -->
+              {{with .HTTPGet}} <!-- 36 -->
+             <div class="padleft70">HTTPGet : </div>
+              <div class="padleft90">Path:  {{.Path}}</div> 
+              <div class="padleft90">Port:  {{.Port}}</div> 
+              <div class="padleft90">Host:  {{.Host}}</div> 
+              <div class="padleft90">Scheme:  {{.Scheme}}</div> 
+              <div class="padleft70">HTTPHeaders: </div> 
+              {{range .HTTPHeaders}}  <!-- 37 -->
+               <div class="padleft90">{{.Name}}: {{.Value}} </div>
+              {{end}}  <!-- 37 -->
+              {{end}}  <!-- 36 -->
+              {{with .TCPSocket}} <!-- 38 -->
+              <div class="padleft70">TCPSocket : </div>
+              <div class="padleft90">Port : {{.Port}}</div>
+              {{end}}  <!-- 38 -->
+             <div class="padleft70">InitialDelaySeconds:{{.InitialDelaySeconds}} </div>
+             <div class="padleft70">TimeoutSeconds:{{.TimeoutSeconds}} </div>
+             <div class="padleft70">PeriodSeconds:{{.PeriodSeconds}} </div>
+             <div class="padleft70">SuccessThreshold:{{.SuccessThreshold}} </div>
+             <div class="padleft70">FailureThreshold:{{.FailureThreshold}} </div>
+             {{end}} <!-- 31 -->
+             {{with .ReadinessProbe}}  <!-- 39 -->
+             <div class="padleft70">ReadinessProbe: </div>
+             {{with .Exec}} <!-- 40 -->
+             <div class="padleft90">Exec: </div>
+             <div class="padleft110">Command: </div> 
+             <div class="padleft130">{{.Command}} </div>
+             {{end}}  <!-- 40 -->
+             {{with .HTTPGet}} <!-- 41 -->
+             <div class="padleft140">HTTPGet : </div>
+              <div class="padleft160">Path:  {{.Path}}</div> 
+              <div class="padleft160">Port:  {{.Port}}</div> 
+              <div class="padleft160">Host:  {{.Host}}</div> 
+              <div class="padleft160">Scheme:  {{.Scheme}}</div> 
+              <div class="padleft160">HTTPHeaders: </div> 
+              {{range .HTTPHeaders}}  <!-- 42 -->
+               <div class="padleft180">{{.Name}}: {{.Value}} </div>
+              {{end}}  <!-- 42 -->
+              {{end}}  <!-- 41 -->
+              {{with .TCPSocket}} <!-- 43 -->
+              <div class="padleft140">TCPSocket : </div>
+              <div class="padleft140">Port : {{.Port}}</div>
+              {{end}}  <!-- 43 -->
+             <div class="padleft120">InitialDelaySeconds:{{.InitialDelaySeconds}} </div>
+             <div class="padleft120">TimeoutSeconds:{{.TimeoutSeconds}} </div>
+             <div class="padleft120">PeriodSeconds:{{.PeriodSeconds}} </div>
+             <div class="padleft120">SuccessThreshold:{{.SuccessThreshold}} </div>
+             <div class="padleft120">FailureThreshold:{{.FailureThreshold}} </div>
+             {{end}} <!-- 39 -->
+
+            {{end}} <!-- 14 -->
+             <div  class="padleft80">RestartPolicy:{{.RestartPolicy}}</div>
+             <div  class="padleft80">TerminationGracePeriodSeconds:{{.TerminationGracePeriodSeconds}}</div>
+             {{if .ActiveDeadlineSeconds}} <!-- 85 -->
+             <div  class="padleft80">ActiveDeadlineSeconds:{{.ActiveDeadlineSeconds}}</div>
+             {{end}} <!-- 85-->
+             {{if gt (.NodeSelector|len) 0}} <!-- 100-->
+             <div  class="padleft80">NodeSelector:</div>
+             {{range $k,$v := .NodeSelector}} <!-- 45-->
+               <div class="padleft100">{{$k}} : {{$v}} </div>
+               {{end}} <!-- 45 -->
+                 {{end}} <!-- 100 -->
+                 {{if ne .ServiceAccountName ""}} <!-- 101 -->
+             <div  class="padleft80">ServiceAccountName:{{.ServiceAccountName}}</div>
+             {{end}} <!-- 101 -->
+             {{if ne .NodeName ""}} <!-- 102 -->
+             <div  class="padleft80">NodeName:{{.NodeName}}</div>
+             {{end}} <!-- 102-->
+             {{if ne .Hostname ""}} <!-- 103 -->
+             <div  class="padleft80">Hostname: {{.Hostname}}</div>
+             {{end}} <!-- 103 -->
+             {{if ne .Subdomain "" }} <!-- 104 -->
+             <div  class="padleft80">Subdomain: {{.Subdomain}}</div>
+               {{end}} <!-- 105 -->
+               {{with .SecurityContext}} <!-- 46 -->
+               
+            <div  class="padleft80">SecurityContext: </div>
+            <div  class="padleft100">HostNetwork: {{.HostNetwork}}</div>
+            <div  class="padleft100">HostPID: {{.HostPID}}</div>
+            <div  class="padleft100">HostIPC: {{.HostIPC}}</div>
+            {{if .RunAsUser}} <!-- 106 -->
+            <div  class="padleft100">RunAsUser: {{.RunAsUser}}</div>
+            {{end }} <!-- 106 -->
+            {{if .FSGroup}} <!--107-->
+            <div  class="padleft100">FSGroup: {{.FSGroup}}</div>
+            {{end}} <!-- 107 -->
+            {{if(.SupplementalGroups|len) 0}} <!-- 108 -->
+            <div  class="padleft100">SupplementalGroups: {{ range .SupplementalGroups}} {{.}}&nbsp;&nbsp;{{end}} </div>
+            {{end}} <!-- 108 -->
+            {{if .RunAsNonRoot}} <!-- 109 -->
+            <div  class="padleft100">RunAsNonRoot: {{.RunAsNonRoot}}</div>
+            {{end}} <!-- 109 -->
+            {{with .SELinuxOptions}} <!-- 47 -->
+            <div  class="padleft120">User: {{.User}}</div>
+            <div  class="padleft120">Role: {{.Role}}</div>
+            <div  class="padleft120">Type: {{.Type}}</div>
+            <div  class="padleft120">Level: {{.Level}}</div>
+            {{end}} <!-- 47 -->
+            {{end}} <!-- 46 -->
+
+
+           {{end}}  <!-- 11 -->
+           {{end}} <!-- 7 -->
+           {{end}}  <!-- 4 -->
+
+           <div>Status: </div>
+           {{with .Status}} <!-- 48 -->
+            <div class="padleft20">Replicas: {{.Replicas}} </div>
+             <div class="padleft20">FullyLabeledReplicas: {{.FullyLabeledReplicas}} </div>
+              <div class="padleft20">ObservedGeneration: {{.ObservedGeneration}} </div>
+           {{end}}  <!-- 48 -->
+   
+
+
+
+
+            </td>
+  {{end}} <!-- 1 -->             
+              </tr>
+              
+        </tbody>
+
+    </table>
+</div>
+<!-- <textarea rows="50" cols="50"></textarea> -->

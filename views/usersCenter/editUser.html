@@ -1,0 +1,57 @@
+{{template "/headCssJs.tpl" .}}
+<div class="bs-docs-example" style="padding-top: 15px;">
+    <table class="table table-hover ">
+        <thead>
+            <tr>
+                <th class="text-center">Items</th>
+                <th class="text-center">Messages</th>
+
+            </tr>
+        </thead>
+       {{with .User}}
+        <tbody>
+
+            <tr class="text-center lh30px">
+                <form action="UpdateUserInfo" method="POST">
+                    <td class="text-v-center ">Name</td>
+                    <td class="text-v-center tleft">
+                        <input name="name" type="text" class="form-control" value="{{.Name}}">
+                        <input name="id" type="hidden" value="{{.Id}}">
+                    </td>
+            </tr>
+            <tr class="text-center lh30px">
+                <td class="text-v-center">LoginName</td>
+                <td class="text-v-center tleft ">{{.LoginName}}</td>
+            </tr>
+            <tr class="text-center lh30px">
+                <td class="text-v-center">Password</td>
+                <td class="text-v-center tleft">
+                    <input name="password" type="text" class="form-control" placeholder="Blank will not change"></td>
+            </tr>
+            </tr>
+            <tr class="text-center lh30px">
+                <td class="text-v-center">Role</td>
+                <td class="text-v-center tleft ">
+                    <select name="role">
+<option value="user" {{if eq .Role "user"}} selected {{end}}>user</option>
+<option value="admin"  {{if eq .Role "admin"}} selected {{end}}>admin</option>
+</select>
+                </td>
+            </tr>
+                        <tr class="text-center lh30px">
+                <td class="text-v-center">State</td>
+                <td class="text-v-center tleft">
+                   <select name="state">
+<option value="true" {{if eq .Role "true"}} selected {{end}}>True</option>
+<option value="false"  {{if eq .Role "false"}} selected {{end}}>False</option>
+</select>
+            </tr>
+
+            <tr><td class="text-v-center" colspan="2">
+                <div style="text-align:center">
+                     <button type="submit" class="btn btn-default">Submit</button>
+                </div></td></tr>
+        </tbody>
+        {{end}}
+    </table>
+</div>

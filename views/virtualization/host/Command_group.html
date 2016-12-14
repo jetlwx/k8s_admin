@@ -1,0 +1,342 @@
+{{template "/headCssJs.tpl" .}}
+
+
+<div class="bs-docs-example" style="padding-top: 15px;">
+    {{if .IsCommandGroup}}
+    <table class="table table-hover  showdisplay " id="shoedetail" style="width:780px;">
+        <!--<thead>
+            <tr>
+                <td class="text-center fb">Command Pannel</td>
+            </tr>
+
+        </thead>-->
+        <tbody>
+            <tr class="text-center lh30px">
+                <div style="float:left;">
+
+                    <form action="/VirtualHostMOther/CommandGroup" method="CommandGroup">
+                        <td class="text-v-center fb ">
+                            <button type="submit" class="btn btn-default">Create VM </button>
+                            <input type="hidden" name="command" value="createvm">
+                            <input type="hidden" name="hostid" id="createvm_hostid">
+                        </td>
+                    </form>
+                </div>
+                <div style="float:left;">
+                    <form action="/VirtualHostMOther/CommonCommand" method="CommonCommand">
+                        <td class="text-v-center fb ">
+                            <button type="submit" name="submit" class="btn btn-default">List</button>
+                            <input type="hidden" name="command" value="list">
+                            <input type="hidden" name="hostid" id="List" value="{{.HostID}}">
+                        </td>
+                    </form>
+                </div>
+
+                <div style="float:left;">
+                    <form action="/VirtualHostMOther/CommonCommand" method="CommonCommand">
+                        <td class="text-v-center fb ">
+                            <button type="submit" class="btn btn-default">AllList</button>
+                            <input type="hidden" name="command" value="AllList">
+                            <input type="hidden" name="hostid" id="List">
+                        </td>
+                    </form>
+                </div>
+
+                <div style="float:left;">
+                    <form action="/VirtualHostMOther/CommonCommand" method="CommonCommand">
+                        <td class="text-v-center fb ">
+                            <button type="submit" class="btn btn-default">NodeCpuMap</button>
+                            <input type="hidden" name="command" value="nodecpumap">
+                            <input type="hidden" name="hostid" id="nodecpumap">
+                        </td>
+                    </form>
+                </div>
+                <div style="float:left;">
+                    <form action="/VirtualHostMOther/CommonCommand" method="CommonCommand">
+                        <td class="text-v-center fb ">
+                            <button type="submit" class="btn btn-default">NodeCpuStats</button>
+                            <input type="hidden" name="command" value="nodecpustats">
+                            <input type="hidden" name="hostid" id="nodecpustats">
+                        </td>
+                    </form>
+                </div>
+
+                <div style="float:left;">
+                    <form action="/VirtualHostMOther/CommonCommand" method="CommonCommand">
+                        <td class="text-v-center fb ">
+                            <button type="submit" class="btn btn-default">NodeInfo</button>
+                            <input type="hidden" name="command" value="nodeinfo">
+                            <input type="hidden" name="hostid" id="nodeinfo">
+                        </td>
+                    </form>
+                </div>
+
+                <div style="float:left;">
+                    <form action="/VirtualHostMOther/CommonCommand" method="CommonCommand">
+                        <td class="text-v-center fb ">
+                            <button type="submit" class="btn btn-default">Sysinfo</button>
+                            <input type="hidden" name="command" value="sysinfo">
+                            <input type="hidden" name="hostid" id="sysinfo">
+                        </td>
+                    </form>
+                </div>
+
+
+            </tr>
+            <tr class="text-center lh30px">
+                <div style="float:left;">
+                    <form action="/VirtualHostMOther/CommonCommand" method="CommonCommand">
+                        <td class="text-v-center fb ">
+                            <button type="submit" class="btn btn-default">HostName</button>
+                            <input type="hidden" name="command" value="hostname">
+                            <input type="hidden" name="hostid" id="hostname">
+                        </td>
+                    </form>
+                </div>
+
+                <div style="float:left;">
+                    <form action="/VirtualHostMOther/CommonCommand" method="CommonCommand">
+                        <td class="text-v-center fb ">
+                            <button type="submit" class="btn btn-default">Pool-list</button>
+                            <input type="hidden" name="command" value="pool-list">
+                            <input type="hidden" name="hostid" id="pool-list">
+                        </td>
+                    </form>
+                </div>
+                <div style="float:left;">
+                    <form action="/VirtualHostMOther/CommonCommand" method="CommonCommand">
+                        <td class="text-v-center fb ">
+                            <button type="submit" class="btn btn-default">Interface-list</button>
+                            <input type="hidden" name="command" value="iface-list">
+                            <input type="hidden" name="hostid" id="iface-list">
+                        </td>
+                    </form>
+                </div>
+                <div style="float:left;">
+                    <form action="/VirtualHostMOther/CommonCommand" method="CommonCommand">
+                        <td class="text-v-center fb ">
+                            <button type="submit" class="btn btn-default">NodeDev-list</button>
+                            <input type="hidden" name="command" value="nodedev-list">
+                            <input type="hidden" name="hostid" id="nodedev-list">
+                        </td>
+                    </form>
+                </div>
+
+            </tr>
+        </tbody>
+    </table>
+    {{end}} {{if .IsCreateVM}}
+    <table class="table table-hover  showdisplay " id="shoedetail">
+        <thead>
+            <tr>
+                <th class="text-center">Items</th>
+                <th class="text-center">Messages</th>
+
+            </tr>
+        </thead>
+
+        {{with .HOST}}
+        <tbody>
+            <form action="/VirtualHostMOther/Createvm" method="POST" id="subcreatevm">
+
+                <tr class="text-center lh30px">
+                    <td class="text-v-center fb ">HostIP</td>
+                    <td class="text-v-center tleft ">{{.Ipaddr}}
+                        <input name="id" type="hidden" value="{{.Id}}">
+                        <input name="hostip" id="hostip" type="hidden" value="{{.Ipaddr}}">
+                        <input type="hidden" name="hostid" id="createvm_hostid">
+
+                    </td>
+                    <tr class="text-center lh30px">
+                        <td class="text-v-center fb ">VMName</td>
+                        <td class="text-v-center tleft ">
+                            <div class="form-group">
+                                <input type="text" id="vmname" name="vmname" class="form-control fw" placeholder="vm name" value="" />
+                            </div>
+                        </td>
+                    </tr>
+
+                </tr>
+                <tr class="text-center lh30px">
+                    <td class="text-v-center fb ">VMPool</td>
+                    <td class="text-v-center tleft ">
+                        <div class="form-group " id="vmipdiv">
+
+                            <select class="form-control" style="width:200px;" name="vmip" id="vmip" onchange="return autogateway()">
+       <option value="">--   please select  --</option>
+        {{range $.VMPOOL}}
+      <option value="{{.Ipaddr}}" style="line-height:30px; text-align:center;">{{.Ipaddr}}</option>
+       {{end}}
+      </select>
+
+                        </div>
+                    </td>
+                </tr>
+
+
+                <tr class="text-center lh30px">
+                    <td class="text-v-center fb ">GateWay</td>
+                    <td class="text-v-center tleft ">
+                        <div class="form-group">
+                            <input type="text" id="gateway" name="GateWay" class="form-control fw" placeholder="vm GateWay" value="" />
+                        </div>
+                    </td>
+                </tr>
+                <tr class="text-center lh30px">
+                    <td class="text-v-center fb ">NetMask</td>
+                    <td class="text-v-center tleft ">
+                        <div class="form-group">
+                            <input type="text" id="vmnetmask" name="NetMask" class="form-control fw" placeholder="vm NetMask" value="255.255.255.0">
+                        </div>
+                    </td>
+                </tr>
+                <tr class="text-center lh30px">
+                    <td class="text-v-center fb ">DNS</td>
+                    <td class="text-v-center tleft ">
+                        <div class="form-group">
+                            <input type="text" id="vmdns" name="DNS" class="form-control fw" placeholder="vm DNS" value="202.96.134.133">
+                        </div>
+                    </td>
+                </tr>
+
+
+                <tr class="text-center lh30px">
+                    <td class="text-v-center fb ">Template</td>
+                    <td class="text-v-center tleft " style="width:300px;">
+                        <div class="form-group " id="vmimage">
+
+                            <select class="form-control" style="width:300px;" name="vmtemplate" id="vmtemplateimages" onchange="return autogateway()">
+       {{if ne .ImageTemplatePath1 "" }}
+       <option value="1">{{.ImageTemplatePath1}}</option>
+       {{end}}
+      {{if ne .ImageTemplatePath2 "" }}
+       <option value="2">{{.ImageTemplatePath2}}</option>
+       {{end}}
+       {{if ne .ImageTemplatePath3 "" }}
+       <option value="3">{{.ImageTemplatePath3}}</option>
+       {{end}}
+       {{if ne .ImageTemplatePath4 "" }}
+       <option value="4">{{.ImageTemplatePath4}}</option>
+       {{end}}
+       {{if ne .ImageTemplatePath5 "" }}
+       <option value="5">{{.ImageTemplatePath5}}</option>
+       {{end}}
+      </select>
+
+                        </div>
+                    </td>
+                </tr>
+                <tr class="text-center lh30px">
+                    <td class="text-v-center fb ">Create Script</td>
+                    <td class="text-v-center tleft ">
+                        <div class="form-group">
+                            <input type="text" id="createScript" name="createScript" class="form-control fw" placeholder="/root/scripts/auto_create_vm.sh"
+                                value="/root/scripts/auto_create_vm.sh"><br> tip:the scripts must
+                            hava x privileges ,Recommend 0755
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-center">
+                        <button type="button" class="btn btn-default" onclick="submitForm()">Confirm </button>
+                        <button type="button" class="btn btn-default" onclick="backtogroup()" style="margin-left:100px;">Back </button>
+                    </td>
+                </tr>
+            </form>
+
+        </tbody>
+    </table>
+    {{end}} {{end}}
+    <!--  crate vm end-->
+
+
+</div>
+<!-- common comand start -->
+{{if .IsCommonComand}}
+<div class="bs-docs-example" style="padding-top: 15px;">
+    <div id="myDiv">
+        {{str2html .Msg}}
+    </div>
+</div>
+{{end}}
+<!-- common comand stop -->
+<!-- 刷新-->
+<!--
+<script type="text/javascript">
+setInterval(loadXMLDoc,1000);
+function loadXMLDoc()
+{
+var xmlhttp;
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.open("GET",{{.Filename}},false);
+xmlhttp.send();
+document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+}
+</script>
+-->
+
+
+
+
+<script language="javascript">
+window.onload=GetQueryString();
+function GetQueryString(name)
+{
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  unescape(r[2]); return null;
+
+}
+
+ //document.getElementById("hostid2").value=GetQueryString("hostid");
+   $("input[name='hostid']").val(GetQueryString("hostid"));
+
+ function backtogroup(){
+     window.history.back(-1);
+}
+
+function autogateway(){
+    var ip1= document.getElementById("hostip").value ;
+  //  var ip1 = document.getElementById("vmip").value;
+   var  arr= ip1.split(".");
+   var newga=arr[0]+"."+arr[1]+"."+arr[2]+".1"
+    document.getElementById("gateway").value=newga;
+    document.getElementById("gateway").style.border="1px solid #ccc";
+}
+
+function checksubmit(){
+    var vn=document.getElementById("vmname").value;
+    var g=document.getElementById("gateway").value;
+    var vmip=document.getElementById("vmip").value;
+    if(vn == "") {
+       document.getElementById("vmname").style.border="1px solid red";
+       return false;
+    }
+    if(vmip==""){
+      var p2 = document.getElementById("vmipdiv");
+          p2.className="form-group has-error";
+     document.getElementById("gateway").style.border="1px solid red";
+     return false;
+     }
+
+    if (  g== "") {
+         document.getElementById("gateway").style.border="1px solid red";
+        return false;
+    }
+
+    return true;
+}
+
+function submitForm(){
+ if (checksubmit()) {
+document.getElementById('subcreatevm').submit();
+ }
+}
+</script>

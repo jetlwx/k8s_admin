@@ -1,0 +1,177 @@
+{{template "/head.tpl" .}} {{template "/virtualization/tab.tpl" .}}
+
+
+<table style="width:100%; margin-bottom:20px; margin-top:20px;">
+    <tr>
+        <td>
+            <form method="GET" action="">
+                <div><span class="lh30px fw" style="float:left">Search </span>
+                    <div class="col-lg-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="ser" placeholder="IP or hosts or vmdesc or vmname">
+                            <span class="input-group-btn">
+        <button class="btn btn-default" type="submit" style="margin-left:30px;">&nbsp; Go&nbsp; </button>
+      </span>
+                        </div>
+                        <!-- /input-group -->
+                    </div>
+                    <!-- /.col-lg-6 -->
+                </div>
+                <!-- /.row -->
+                </div>
+        </td>
+    </tr>
+</table>
+</form>
+<div class="bs-docs-example" style="padding-top: 15px;">
+
+    <div>
+
+        <table class="table table-hover ">
+            <thead>
+                <tr>
+
+                    <th class="text-center">IP</th>
+                    <th class="text-center">Useing</th>
+                    <th class="text-center">Host</th>
+                    <th class="text-center">Virtual Machine</th>
+                    <th class="text-center">VM State</th>
+                    <th class="text-center">Desc</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+        
+                {{range .RecordData}}
+                
+                <tr class="text-center lh20px">
+                    <td class="text-v-center  lh20px">
+                        {{.Ipaddr}}
+                        <input type="hidden" name="id" value="{{.Id}}" />
+                    </td>
+                    <td class="text-v-center  ">
+                        {{if .Useing}} Useing{{else}}-{{end}}
+                    </td>
+                    <td class="text-v-center  ">
+                        {{.HostsIp}}
+                    </td>
+                    <td class="text-v-center  ">
+                        {{if .VmName}} {{.VmName}}{{else}} - {{end}}
+                    </td>
+                    <td class="text-v-center  ">
+                        {{if .VmState}} {{.VmState}}{{else}} - {{end}}
+                    </td>
+                    <td style="align:center;">
+                        <div style=" margin:0 auto; width:250px; text-align:center;overflow:hidden; text-overflow:ellipsis; white-space:nowrap; ">
+                            {{if ne .VmDesc ""}} {{.VmDesc}}{{else}} - {{end}}</div>
+                    </td>
+
+
+                    <td class="text-v-center  ">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default" id={{.Id}} onclick="return send({{.Id}})">Edit</button>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    <span class="caret"></span>
+    <span class="sr-only">切换下拉菜单</span>
+  </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuDivider">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick="return  send4({{.Id}},{{.Ipaddr}},{{.VmName}},{{.HostsIp}})">Command Group</a></li>
+
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation" style="text-align:center"><a role="menuitem" tabindex="-1" href="#" onclick="return  sendvnc({{.Id}},{{.Ipaddr}},{{.VmName}},{{.HostsIp}})">VNC</a></li>
+                                <li role="presentation" class="divider"></li>
+                                <!--<li role="presentation" style="text-align:center"><a role="menuitem" tabindex="-1" href="#" onclick="return  sendssh({{.Id}},{{.Ipaddr}},{{.VmName}},{{.HostsIp}})">SSH</a></li>
+                                 <li role="presentation" class="divider"></li>
+                                <li role="presentation" style="text-align:center"><a role="menuitem" tabindex="-1" href="/virtualization/OpenSFTP" target="_blank" >SFTP</a></li>-->
+                            </ul>
+                        </div>
+
+                    </td>
+
+                </tr>
+                {{end}}
+                <!--分页 start-->
+                <tr style=" text-align:center;">
+                    <td colspan="7">
+                        <div style="float:left;width:85%">
+                            {{.Pagerhtml}}
+
+                        </div>
+                        <div style="float:left; "> Total:{{.TotalItem}}</div>
+                    </td>
+                </tr>
+                <!--分页 over-->
+            </tbody>
+
+
+
+        </table>
+    </div>
+</div>
+{{template "/poplayer_flush_father.tpl" .}} {{template "/poplayer_delete.tpl" .}}
+
+
+
+
+
+
+<script>
+ function send(m){
+    // $("#"+m).click(function(){
+ var frameSrc = "/virtualization/editMachine?machinId=" + m + "&type=editMachine";
+
+        //alert(frameSrc);
+        $("#NoPermissioniframe").attr("src", frameSrc);
+        $('#NoPermissionModal').modal({ show: true, backdrop: 'static' });
+    // });
+}
+
+//shutdown/startup
+ function send2(m,n,t){
+ var frameSrc="http://"+{{$.Proxy}}+"/?type="+t+"&hostip="+m+"&vmname="+n;
+        $("#NoPermissioniframe").attr("src", frameSrc);
+        $('#NoPermissionModal').modal({ show: true, backdrop: 'static' });
+
+}
+//create
+ function send3(m){
+    // $("#"+m).click(function(){
+ var frameSrc = "/VirtualOperation/OperateMachine?machinId=" + m ;
+ //alert(frameSrc);
+        $("#NoPermissioniframe").attr("src", frameSrc);
+        $('#NoPermissionModal').modal({ show: true, backdrop: 'static' });
+
+}
+
+//command group
+//{{.Id}},{{.Ipaddr}},{{.VmName}},{{.HostsIp}}
+ function send4(m,n,k,j){
+    // $("#"+m).click(function(){
+ var frameSrc = "/VirtualOperation/CommandGroup?vmid="+m+"&vmip="+n+"&vmname="+k+"&hostip="+j;
+ //alert(frameSrc);
+        $("#NoPermissioniframe").attr("src", frameSrc);
+        $('#NoPermissionModal').modal({ show: true, backdrop: 'static' });
+
+}
+
+
+// function ow(owurl){
+//     var tmp=window.open(""about:blank"","newwindow","fullscreen=1");
+//     tmp.moveTo(0,0);
+//     tmp.resizeTo(screen.width+20,screen.height);
+//     tmp.focus();
+//     tmp.location=owurl;
+//     tmp.
+// } 
+
+function sendvnc(m,n,k,j){
+    var url="/VirtualOperation/DomainCommand?vmid="+m+"&vmip="+n+"&vmname="+k+"&hostip="+j+"&type=VNC";
+//window.open (url, "about:blank", "fullscreen=1, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no")  
+  window.open (url, "about:blank", "fullscreen")  
+
+}
+</script>
+
+<!--弹出模 over-->
+
+{{template "/foot.tpl" .}}

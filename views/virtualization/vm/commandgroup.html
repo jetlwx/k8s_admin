@@ -1,0 +1,360 @@
+{{template "/headCssJs.tpl" .}}
+
+
+<div class="bs-docs-example" style="padding-top: 15px;">
+
+    <table class="table table-hover  showdisplay " id="shoedetail" style="width:780px;">
+        <!--<thead>
+            <tr>
+                <td class="text-center fb">Command Pannel</td>
+            </tr>
+
+        </thead>-->
+        <tbody>
+            <div class="btn-group btn-group-justified">
+            <div style="display:none">
+                <input type="hidden"  name="hostip" id="hostip" value="{{$.Hostip}}">
+        <input type="hidden"   name="Vmip" id="Vmip" value="{{$.Vmip}}">
+        <input type="hidden" name="Vmid" id="Vmid" value="{{$.Vmid}}">
+        <input type="hidden"  name="vmname" id="vmname" value="{{$.Vmname}}">
+            </div>
+
+  <div class="btn-group">
+    <button type="button"  title="print the domain's hostname" name="button" class="btn btn-default" onclick="return sendcommon('hostname')">Hostname</button>
+  </div>
+  <div class="btn-group">
+        <button type="submit"  title="list all domain blocks" name="submit" class="btn btn-default" onclick="return sendcommon('DomainBlockList')">BlockList</button>
+  </div>
+   <div class="btn-group">
+        <button type="submit" title="get device block stats for a domain" name="submit" class="btn btn-default" onclick="return sendcommon('DomainBlockState')">BlockState</button>
+  </div>
+   <div class="btn-group">
+        <button type="submit" title="domain control interface state" name="submit" class="btn btn-default" onclick="return sendcommon('DomaminControl')">Control</button>
+  </div>
+   <div class="btn-group">
+        <button type="submit" title="domain state" name="submit" class="btn btn-default" onclick="return sendcommon('DomainState')">State</button>
+  </div>
+  <div class="btn-group">
+        <button type="submit" title="Show errors on block devices" name="submit" class="btn btn-default" onclick="return sendcommon('DomainBlockError')">BlockError</button>
+  </div>
+  <div class="btn-group">
+        <button type="submit" title="domain information" name="submit" class="btn btn-default" onclick="return sendcommon('DomainInfo')">DomainInfo</button>
+  </div> 
+</div>
+<div class="btn-group btn-group-justified">
+  <div class="btn-group">
+        <button type="submit" title="domain information" name="submit" class="btn btn-default" onclick="return sendcommon('DomainInterfaceList')">InterfaceList</button>
+  </div>
+  <div class="btn-group">
+        <button type="submit" title="list the state of running domains " name="submit" class="btn btn-default" onclick="return sendcommon('RunningDomains')">RunningDomains</button>
+  </div>
+  <div class="btn-group">
+        <button type="submit" title="list all the state of domains" name="submit" class="btn btn-default" onclick="return sendcommon('AllDomains')">AllDomains</button>
+  </div>
+      <div class="btn-group">
+       <button type="submit" title=" gracefully shutdown a domain" name="submit" class="btn btn-warning" onclick="return sendcommon('ShutDown')">ShutDown</button> 
+  </div>
+    <div class="btn-group">
+       <button type="submit" title="start a domain from shutdown state" name="submit" class="btn btn-default" onclick="return sendcommon('startDomain')">Start</button> 
+  </div>
+
+      <div class="btn-group">
+       <button type="submit" title="suspend a domain" name="submit" class="btn btn-warning" onclick="return sendcommon('Suspend')">Suspend</button> 
+  </div>
+      
+</div>
+<div class="btn-group btn-group-justified">
+  <div class="btn-group">
+       <button type="submit" title="reboot a domain" name="submit" class="btn btn-warning" onclick="return sendcommon('Reboot')">Reboot</button> 
+  </div>
+    <div class="btn-group">
+       <button type="submit" title="domain auto start when Host start" name="submit" class="btn btn-default" onclick="return sendcommon('AutoStart')">AutoStart</button> 
+  </div>
+      <div class="btn-group">
+       <button type="submit" title="disable domain auto start when Host start" name="submit" class="btn btn-default" onclick="return sendcommon('DisableAutoStart')">DisableAutoStart</button> 
+  </div>
+
+  <div class="btn-group">
+       <button type="submit" title="resume a domain from suspend state" name="submit" class="btn btn-default" onclick="return sendcommon('Resume')">Resume</button> 
+  </div>
+  <div class="btn-group">
+       <button type="submit" title="Destroy a domain,like press power" name="submit" class="btn btn-warning" onclick="return sendcommon('Destroy')">Destroy</button> 
+  </div>
+   <div class="btn-group">
+       <button type="button" title="Attach New Disk to the Domain" name="submit" class="btn btn-default" onclick="return send2()">AttachDisk</button> 
+  </div>
+
+
+
+</div>
+<div class="btn-group btn-group-justified">
+    <div class="btn-group">
+     <button type="button" title="Detach the target Device from running domain,and delete the XML file and device file " name="submit" class="btn btn-danger" onclick="return send1('GetDomainDiskList2')">DetachdiskAbsolute</button> 
+  </div>
+     <div class="btn-group">
+     <button type="button" title="Detach the target Device from running domain,but the XML file and device file already exist" name="submit" class="btn btn-warning" onclick="return send1('GetDomainDiskList')">DetachdiskFromDomain</button> 
+  </div>
+       <div class="btn-group">
+     <button type="button" title=" Show domain Vcpu" name="submit" class="btn btn-default" onclick="return sendcommon('ShowVcpuNumber')">ShowVcpuNumber</button> 
+  </div>
+  <div class="btn-group">
+     <button type="button" title="Set Vcpu number " name="submit" class="btn btn-default" onclick="return showme()">SetCpuNumber</button> 
+  </div>
+
+</div>
+
+<div class="btn-group btn-group-justified">
+   <div class="btn-group">
+     <button type="button" title="Set Memory " name="submit" class="btn btn-default" onclick="return showmem()">SetMemory</button> 
+  </div>
+   <div class="btn-group">
+     <button type="button" title="Show Domain Memory information " name="submit" class="btn btn-default" onclick="return sendcommon('DomainMemory')">MemoryInfo</button> 
+  </div>
+</div>
+</tbody>
+    </table>
+  
+    
+
+
+
+</div>
+
+
+<!-- set max cpu number-->
+<div id="setmaxcpu" style="display:none;">
+<table>
+    <tr>
+        <td class="padleft20 " style="width:100px;">Cpu Number</td>
+        <td style="width:100px;">   
+              <input type="Disk" class="form-control" id="cpumumber" placeholder="Please input digit" style="width:100px; margin-left:10px;margin-right:10px;">
+        </td>
+        <td style="width:30px;">VCPU</td>
+        <td style="text-align:right;padding-right:5px;width:60px; " >State</td>
+        <td style="width:130px;">
+        <select class="form-control" id="cpuset">
+  <option>MaxConfig</option>
+  <option>CurrentLive</option>
+  <option>CurrentConfig</option>
+</select></td>
+
+        <td><button type="button" title="Set max Cpu Number" name="submit" class="btn btn-default m10 padleft10 padright10" onclick="return send4('SetVCpuNumber')">Set</button>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6"> 
+         <div>
+            <ur>
+                <li>
+                    MaxConfig: set maximum limit on next boot,Just affect config file at running state
+                </li>
+                <li>
+                    CurrentConfig: affect next boot.the number is when os boot,May be can less than MaxConfig,Just can set when domain at shutdown state
+                </li>
+                <li>
+                    CurrentLive: Just affect running state,is a temp set
+                </li>
+            </ur>
+        </div>
+        </td>
+    </tr>
+</table>
+</div>
+<!-- set mem-->
+<div id="setmemory" style="display:none;">
+<table>
+    <tr>
+        <td class="padleft20 "  style="width:60px;"> Memory</td>
+        <td style="width:100px;">     
+            <input type="Disk" class="form-control" id="memnumber" placeholder="Please input int or float" style="width:100px; margin-left:10px;margin-right:10px;">
+            <td style="width:30px; ">GB</td>
+        </td>
+        <td style="text-align:right;padding-right:5px;width:60px; ">State</td>
+        <td style="width:130px;">
+        <select class="form-control" id="memset">
+  <option>MaxConfig</option>
+  <option>CurrentLive</option>
+  <option>CurrentConfig</option>
+</select></td>
+
+        <td><button type="button" title="Set memory for domain" name="submit" class="btn btn-default m10 padleft10 padright10" onclick="return send5('SetMemory')">Set</button>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6"> 
+         <div>
+            <ur>
+                <li>
+                    MaxConfig: set maximum limit on next boot,Just affect config file at running state
+                </li>
+                <li>
+                    CurrentConfig: affect next boot.the number is when os boot,May be can less than MaxConfig
+                </li>
+                <li>
+                    CurrentLive: Just affect running state,is a temp set
+                </li>
+            </ur>
+        </div>
+        </td>
+    </tr>
+</table>
+</div>
+
+<!-- attach disk-->
+<div id="attachdisk" style="display:none;">
+<form>
+    <table>
+        <tr>
+            <td class="padleft20 ">DiskSize</td>
+            <td>
+      <input type="Disk" class="form-control" id="disksize" placeholder="Please input digit" style="width:150px; margin-left:10px;margin-right:10px;">
+    </td><td style="text-align:left;">GB</td>
+    <td style="text-align:right;padding-left:10px;padding-right:5px;">Driver</td><td>
+        <select class="form-control" id="driver">
+  <option>VirtIO</option>
+  <option>IDE</option>
+</select></td>
+    <td> <button type="button" title="Attach New Disk to the Domain" name="submit" class="btn btn-default m10" onclick="return send3('AttachDisk')">Attach</button></td>
+        </tr>
+    </table>
+</form>
+</div>
+
+
+<!--iframe i-->
+<div class="bs-docs-example" style="padding-top: 10px; height:300px;" id="show1">
+    <table style="width:760px;"><tr><td>
+      <iframe id="i" width="100%" height="300px" frameborder="0"></iframe>
+      
+      </td></tr></table>
+</div>
+
+<script language="javascript">
+    function sendcommon(m){
+        document.getElementById("show1").style.display="block";
+       document.getElementById("setmaxcpu").style.display="none"; 
+       document.getElementById("attachdisk").style.display="none";
+       document.getElementById("setmemory").style.display="none"; 
+
+         var s1 = document.getElementById("i"); 
+        var hostip=document.getElementById("hostip").value;
+        var vmname=document.getElementById("vmname").value;
+        s1.src = "/VirtualOperation/DomainCommand?type="+m+"&hostip="+hostip+"&vmname="+vmname; 
+    }
+    function send1(m){
+        document.getElementById("show1").style.display="block";
+        document.getElementById("attachdisk").style.display="none";
+        document.getElementById("setmaxcpu").style.display="none"; 
+        var s1 = document.getElementById("i"); 
+        var hostip=document.getElementById("hostip").value;
+        var vmname=document.getElementById("vmname").value;
+        s1.src = "/VirtualOperation/DomainCommand?type="+m+"&hostip="+hostip+"&vmname="+vmname; 
+    }
+    function send2(){
+        document.getElementById("show1").style.display="none";
+        document.getElementById("attachdisk").style.display="block";  
+         document.getElementById("setmaxcpu").style.display="none"; 
+         document.getElementById("setmemory").style.display="none"; 
+
+ 
+    }
+
+   function showme(){
+       document.getElementById("setmaxcpu").style.display="block"; 
+       document.getElementById("show1").style.display="none";
+       document.getElementById("attachdisk").style.display="none";
+       document.getElementById("setmemory").style.display="none"; 
+   }
+   
+      function showmem(){
+          document.getElementById("setmemory").style.display="block"; 
+       document.getElementById("setmaxcpu").style.display="none"; 
+       document.getElementById("show1").style.display="none";
+       document.getElementById("attachdisk").style.display="none";
+   }
+   function send3(m){
+       var disksize=document.getElementById("disksize").value;
+        document.getElementById("show1").style.display="block";
+        document.getElementById("attachdisk").style.display="none";
+        var s1 = document.getElementById("i"); 
+        var hostip=document.getElementById("hostip").value;
+        var vmname=document.getElementById("vmname").value;  
+        var driver= document.getElementById("driver").value;     
+        s1.src = "/VirtualOperation/DomainCommand?type="+m+"&hostip="+hostip+"&vmname="+vmname+"&disksize="+disksize+"&driver="+driver; 
+    }
+function send4(m){ 
+    document.getElementById("setmaxcpu").style.display="none"; 
+          document.getElementById("show1").style.display="block";
+         var s1 = document.getElementById("i"); 
+        var hostip=document.getElementById("hostip").value;
+        var vmname=document.getElementById("vmname").value; 
+        var cpumumber=document.getElementById("cpumumber").value; 
+        var cpuset= document.getElementById("cpuset").value; 
+       s1.src = "/VirtualOperation/DomainCommand?type="+m+"&hostip="+hostip+"&vmname="+vmname+"&cpumumber="+cpumumber+"&cpuset="+cpuset; 
+       
+}
+function send5(m){ 
+    document.getElementById("setmemory").style.display="none"; 
+          document.getElementById("show1").style.display="block";
+         var s1 = document.getElementById("i"); 
+        var hostip=document.getElementById("hostip").value;
+        var vmname=document.getElementById("vmname").value; 
+        var memnumber=document.getElementById("memnumber").value; 
+        var memset= document.getElementById("memset").value; 
+       s1.src = "/VirtualOperation/DomainCommand?type="+m+"&hostip="+hostip+"&vmname="+vmname+"&memnumber="+memnumber+"&memset="+memset; 
+       
+}
+// window.onload=GetQueryString();
+// function GetQueryString(name)
+// {
+//      var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+//      var r = window.location.search.substr(1).match(reg);
+//      if(r!=null)return  unescape(r[2]); return null;
+
+// }
+
+//  //document.getElementById("hostid2").value=GetQueryString("hostid");
+//    $("input[name='hostip']").val(GetQueryString("hostip"));
+
+//  function backtogroup(){
+//      window.history.back(-1);
+// }
+
+// function autogateway(){
+//     var ip1= document.getElementById("hostip").value ;
+//   //  var ip1 = document.getElementById("vmip").value;
+//    var  arr= ip1.split(".");
+//    var newga=arr[0]+"."+arr[1]+"."+arr[2]+".1"
+//     document.getElementById("gateway").value=newga;
+//     document.getElementById("gateway").style.border="1px solid #ccc";
+// }
+
+// function checksubmit(){
+//     var vn=document.getElementById("vmname").value;
+//     var g=document.getElementById("gateway").value;
+//     var vmip=document.getElementById("vmip").value;
+//     if(vn == "") {
+//        document.getElementById("vmname").style.border="1px solid red";
+//        return false;
+//     }
+//     if(vmip==""){
+//       var p2 = document.getElementById("vmipdiv");
+//           p2.className="form-group has-error";
+//      document.getElementById("gateway").style.border="1px solid red";
+//      return false;
+//      }
+
+//     if (  g== "") {
+//          document.getElementById("gateway").style.border="1px solid red";
+//         return false;
+//     }
+
+//     return true;
+// }
+
+// function submitForm(){
+//  if (checksubmit()) {
+// document.getElementById('subcreatevm').submit();
+//  }
+// }
+</script>

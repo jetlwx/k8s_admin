@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<script type="text/javascript">
+        setInterval(loadXMLDoc, 1000);
+
+        function loadXMLDoc() {
+            var xmlhttp;
+             if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp = new XMLHttpRequest();
+            } else { // code for IE6, IE5
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.open("GET", {{.Filename}}, false);
+            xmlhttp.send();
+            document.getElementById("myDiv").innerHTML = xmlhttp.responseText;
+        }
+    </script>
+	<meta charset="UTF-8" />
+	<title>Create vm log </title>
+
+</head>
+
+<body onload="loadXMLDoc()">
+	<div id="myDiv">
+		<h2>Create vm log</h2>
+	</div>
+	<div id="output"></div>
+
+	{{.M}}
+</body>
+
+</html>

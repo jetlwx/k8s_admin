@@ -1,0 +1,136 @@
+ {{template "/head.tpl" .}} {{template "/virtualization/tab.tpl" .}}
+
+
+
+<!-- start -->
+
+<div class="bs-docs-example" {{if .IsVirtualmachineMother}} style=" padding-top: 15px; display:block;" {{else }}style="display:none;"
+    {{end}}>
+    <form class="form-inline" role="form" method="Post" action="/VirtualHostMOther/Post">
+        <div class="form-group" id="d1">
+            <label for="name">Hosts</label>
+            <input type="text" class="form-control fw" style="width:140px;" id="reg_ip" placeholder="IP or IP segment" name="hostsip"
+                onblur="f_check_IP()">
+        </div>
+        <div class="form-group" id="d2">
+            <label class="" for="name">--</label>
+            <input type="text" class="form-control fw" id="hostsip2" placeholder="" style="width:60px;" name="ip_suffix" onblur="f_c2()">
+        </div>
+        <div class="form-group" id="d3" style="margin-left:30px;">
+            <label for="name">Location</label>
+            <input type="text" class="form-control fw" style="width:200px;" id="location" placeholder="" name="location">
+        </div>
+        <button type="submit" class="btn btn-default" style="margin-left:30px;" onsubmit="javscript:this.enable='disable'">Submit</button>
+    </form>
+    <!--{{range .MSG}}
+<div>.</div>
+{{end}}
+     </div>
+ <!-- end -->
+
+
+    <div class="bs-docs-example" style="padding-top: 15px;">
+
+        <table class="table table-hover ">
+            <thead>
+                <tr>
+
+                    <th class="text-center">IP</th>
+                    <th class="text-center">State</th>
+                    <th class="text-center">Location</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {{range .Hostlist}}
+                <tr class="text-center lh30px">
+                    <td class="text-v-center  ">
+                        {{.Ipaddr}}
+                    </td>
+                    <td class="text-v-center  ">
+                        {{.State}}
+                    </td>
+                    <td class="text-v-center  ">
+                        {{.Location}}
+                    </td>
+
+                    <td class="text-v-center">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default" onclick="return send({{.Id}})">Edit</button>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                            <span class="sr-only">切换下拉菜单</span>
+                        </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="divider"></li>
+                                <li style="padding-top: 5px;padding-bottom: 5px;">
+                                    <a href="#" style=" text-align: center; line-height: 20px;" onclick="send2({{.Id}})">Command Group</a></li>
+                                <li class="divider" style="padding: 0px;"></li>
+                                <li><a href="#" style="margin:0px; text-align: center;" onclick="senddel({{.Ipaddr}},{{.Id}})">Delete</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+    </div>
+
+    {{template "/poplayer_flush_father.tpl" .}} {{template "/foot.tpl" .}}
+    <script language="javascript">
+ function send(m){
+ var frameSrc = "/VirtualHostMOther/Hostedit?hostid="+m;
+        $("#NoPermissioniframe").attr("src", frameSrc);
+        $('#NoPermissionModal').modal({ show: true, backdrop: 'static' });
+}
+ function send2(m){
+ var frameSrc = "/VirtualHostMOther/CommandGroup?hostid="+m;
+        $("#NoPermissioniframe").attr("src", frameSrc);
+        $('#NoPermissionModal').modal({ show: true, backdrop: 'static' });
+}
+
+ function senddel(m,n){
+ var frameSrc = "/VirtualHostMOther/DeleteHost?hostip="+m+"&hostid="+n;
+        $("#NoPermissioniframe").attr("src", frameSrc);
+        $('#NoPermissionModal').modal({ show: true, backdrop: 'static' });
+}
+
+function f_check_IP()
+{  var ip = document.getElementById('reg_ip').value;
+   var re=/^(\d+)\.(\d+)\.(\d+)\.(\d+)$/;//正则表达式
+   if (ip== ""){
+       //alert("no")
+       return false;
+   }
+   if(re.test(ip))
+   {
+       if( RegExp.$1<256 && RegExp.$2<256 && RegExp.$3<256 && RegExp.$4<256)
+       document.getElementById("d1").className='form-group has-success ' ;
+       return true;
+   }
+   //alert("IP有误！");
+   document.getElementById("d1").className='form-group has-error ';
+  // document.getElementById("reg_ip").className='form-control fw'
+   return false;
+}
+function f_c2()
+{
+    var ip2 = document.getElementById('reg_ip2').value;
+    var reg=/^\d+$/;
+
+    if (ip2 !=""){
+    if(reg.test(ip2)!=true){
+    // alert(ip2)
+     document.getElementById("reg_ip2").value="";
+     document.getElementById("d2").className='form-group has-error ';
+     return false;
+    }
+    }else{
+      document.getElementById("d2").className='form-group has-success ' ;
+      return true;
+    }
+
+
+}
+</script>
